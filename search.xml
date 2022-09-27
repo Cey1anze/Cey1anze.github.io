@@ -3,7 +3,9 @@
   <entry>
     <title>Servlet实例化异常解决办法</title>
     <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="1-问题复现"><a href="#1-问题复现" class="headerlink" title="1.问题复现"></a>1.问题复现</h1><p>系统环境：IDEA 2021.2，Tomcat 10</p>
+    <content><![CDATA[<h1 id="1-问题复现"><a href="#1-问题复现" class="headerlink" title="1.问题复现"></a>1.问题复现</h1><blockquote>
+<p>系统环境：IDEA 2021.2，Tomcat 10</p>
+</blockquote>
 <p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
 <p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
 <p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
@@ -14,7 +16,18 @@
 <p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
 </div>
 
-<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目java源文件中import的javax.servlet全部改为jakarta.servlet，保存后即可正常运行<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
+<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
+<blockquote>
+<p>源代码：</p>
+</blockquote>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">import javax.servlet.ServletException<span class="comment">;</span></span><br><span class="line">import javax.servlet.http.HttpServlet<span class="comment">;</span></span><br><span class="line">import javax.servlet.http.HttpServletRequest<span class="comment">;</span></span><br><span class="line">import javax.servlet.http.HttpServletResponse<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改后：</p>
+</blockquote>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">import jakarta.servlet.ServletException<span class="comment">;</span></span><br><span class="line">import jakarta.servlet.http.HttpServlet<span class="comment">;</span></span><br><span class="line">import jakarta.servlet.http.HttpServletRequest<span class="comment">;</span></span><br><span class="line">import jakarta.servlet.http.HttpServletResponse<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
 ]]></content>
   </entry>
   <entry>
