@@ -20,12 +20,12 @@
 <blockquote>
 <p>源代码：</p>
 </blockquote>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">import javax.servlet.ServletException<span class="comment">;</span></span><br><span class="line">import javax.servlet.http.HttpServlet<span class="comment">;</span></span><br><span class="line">import javax.servlet.http.HttpServletRequest<span class="comment">;</span></span><br><span class="line">import javax.servlet.http.HttpServletResponse<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>修改后：</p>
 </blockquote>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">import jakarta.servlet.ServletException<span class="comment">;</span></span><br><span class="line">import jakarta.servlet.http.HttpServlet<span class="comment">;</span></span><br><span class="line">import jakarta.servlet.http.HttpServletRequest<span class="comment">;</span></span><br><span class="line">import jakarta.servlet.http.HttpServletResponse<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
 ]]></content>
