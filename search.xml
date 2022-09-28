@@ -3,14 +3,14 @@
   <entry>
     <title>Servlet实例化异常解决办法</title>
     <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="1-问题复现"><a href="#1-问题复现" class="headerlink" title="1.问题复现"></a>1.问题复现</h1><blockquote>
+    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
 <p>系统环境：IDEA 2021.2，Tomcat 10</p>
 </blockquote>
 <p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
 <p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
 <p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
 <p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
-<h1 id="2-问题解决"><a href="#2-问题解决" class="headerlink" title="2.问题解决"></a>2.问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
 <div align="center">
 
 <p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
