@@ -51,4 +51,41 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>代价函数</title>
+    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><img src="/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/" alt="loading-ag-472"></p>
+<blockquote>
+<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
+</blockquote>
+<div>
+<h1><font color="CadetBlue">1.什么是代价函数</font>
+</h1>
+</div>
+
+<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
+<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
+<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
+<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
+<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
+<div>
+<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
+</h1>
+</div>
+]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
+      <tags>
+        <tag>AI理论基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>梯度下降</title>
+    <url>/2022/10/11/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
+  </entry>
 </search>
