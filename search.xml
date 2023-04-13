@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SQL注入实战之DVWA</title>
+    <url>/2023/04/13/SQL%E6%B3%A8%E5%85%A5%E5%AE%9E%E6%88%98%E4%B9%8BDVWA-%E4%B8%80/</url>
+    <content><![CDATA[<h1 id="SQL-Injections-LOW"><a href="#SQL-Injections-LOW" class="headerlink" title="SQL Injections(LOW)"></a>SQL Injections(LOW)</h1><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这一关是一个输入框，存在一个可控变量id，输入id回显first name以及surname</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132115732.png" title alt data-align="center">
+
+<h2 id="注入点分析"><a href="#注入点分析" class="headerlink" title="注入点分析"></a>注入点分析</h2><p>输入数字1~5回显数据库数据，输入6则为空，说明表中有6个数据。</p>
+<h3 id="判断类型"><a href="#判断类型" class="headerlink" title="判断类型"></a>判断类型</h3><p>使用单引号判断类型：输入1’，回显sql错误：“You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’’ at line 1”，证明为数字型</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132231041.png" title alt data-align="center">
+
+<h2 id="开始注入"><a href="#开始注入" class="headerlink" title="开始注入"></a>开始注入</h2><h3 id="爆列"><a href="#爆列" class="headerlink" title="爆列"></a>爆列</h3><p>加入order by语句判断表有多少列，在order by前需要加单引号将查询语句闭合，后加#等注释符无视掉原查询语句多余的限制内容</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132235291.png" title alt data-align="center">
+
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132235879.png" title alt data-align="center">
+
+<p>可以判断出表有2个字段</p>
+<h3 id="爆数据库名"><a href="#爆数据库名" class="headerlink" title="爆数据库名"></a>爆数据库名</h3><p>使用联合查询语句union select，database()函数等价当前使用的数据库，则可以通过database()查出当前的数据库</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132237171.png" title alt data-align="center">
+
+<h3 id="爆表名"><a href="#爆表名" class="headerlink" title="爆表名"></a>爆表名</h3><p>使用group_concat聚合搜索到的表名，information_schema为mysql5.0以上存在一个自带的数据库,是一个存储纪录了所有数据库名、表名、列名的数据库，也相当于可以从这里查询指定数据库下面的表名和列名的信息</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132250607.png" title alt data-align="center">
+
+<h3 id="爆列名"><a href="#爆列名" class="headerlink" title="爆列名"></a>爆列名</h3><p>使用column_name爆出表中的列，由于数据库中不止有一个users表，所以会聚合显示出所有users表中的列</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132257274.png" title alt data-align="center">
+
+<h3 id="爆数据"><a href="#爆数据" class="headerlink" title="爆数据"></a>爆数据</h3><p>使用union select 1,group_concat(column1,column2) from table爆出所需的信息</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132302078.png" title alt data-align="center">
+
+<h1 id="SQL-Injections-MEDIUM"><a href="#SQL-Injections-MEDIUM" class="headerlink" title="SQL Injections(MEDIUM)"></a>SQL Injections(MEDIUM)</h1><h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>这一关从输入框变为了下拉菜单来控制用户的输入，URL中也无可控变量。第一时间想到看一眼是否是post请求</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132306747.png" title alt data-align="center">
+
+<p>打开开发者工具一看，还真是post请求</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132309427.png" title alt data-align="center">
+
+<p>直接丢给burp suite改看能否直接修改请求体</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304132315294.png" title alt data-align="center">
+
+<p>可以看到能直接在请求体中执行查询语句，1&#x3D;1与1&#x3D;2返回不同的界面，加单引号出现sql报错，证明为字符型</p>
+<h2 id="开始注入-1"><a href="#开始注入-1" class="headerlink" title="开始注入"></a>开始注入</h2><p>和low相同</p>
+<h1 id="其他难度正在研究中…"><a href="#其他难度正在研究中…" class="headerlink" title="其他难度正在研究中…"></a>其他难度正在研究中…</h1>]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>DVWA</tag>
+        <tag>kali</tag>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Servlet实例化异常解决办法</title>
     <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
@@ -174,15 +223,8 @@
       </categories>
       <tags>
         <tag>kali</tag>
+        <tag>metasploit</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>梯度下降</title>
-    <url>/2022/10/11/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>机器深度学习Deeplearning.AI</category>
-      </categories>
   </entry>
   <entry>
     <title>初识SQL注入--小结</title>
@@ -251,6 +293,15 @@
       </categories>
       <tags>
         <tag>kali</tag>
+        <tag>sql</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>梯度下降</title>
+    <url>/2022/10/11/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
   </entry>
 </search>
