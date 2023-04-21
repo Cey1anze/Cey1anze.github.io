@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>代价函数</title>
+    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/ApplicationFrameHost_Gvqy4wLebk.png"></p>
+<blockquote>
+<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
+</blockquote>
+<div>
+<h1><font color="CadetBlue">1.什么是代价函数</font>
+</h1>
+</div>
+
+<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
+<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
+<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
+<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
+<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
+<div>
+<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
+</h1>
+</div>
+
+<p>        假设，给定一个关于 <code>x</code>  和 <code>y</code>  的数据集，该数据集可以被认定为一个线性回归模型，设定假象函数 : <font color="DeepSkyBlue">f<sub>w,b</sub></font> (x) &#x3D; <font color="DeepSkyBlue">w</font>x + <font color="DeepSkyBlue">b</font> </p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_bS2PBfg7tJ.png" title alt data-align="center">
+
+<p>        当函数中 <code>w</code>  和 <code>b</code>  两个参数发生改变时，函数也会偏离或者靠近数据集，为了使假象函数跟接近于真实的目标函数或更能使其正确的表示这个数据集，此时就可以引入代价函数</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_PNGYjBNfTI.png" title alt data-align="center">
+
+<p>        以平方误差代价函数为例，从最简单的单一参数来看，假设函数为：J<sub>w</sub> &#x3D; wx，平方误差代价函数的主要思想就是将实际数据给出的值与我们拟合出的线的对应值做差，求出我们拟合出的直线与实际的差距。</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_QKEXlhGUBk.png" title alt data-align="center">
+
+<p>        为了使这个值不受个别极端数据影响而产生巨大波动，采用类似方差再取二分之一的方式来减小个别数据的影响。这样，就产生了代价函数：</p>
+<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_dfDTIpbfSv.png" alt width="394" data-align="center">
+
+<p>将其扩充成2个参数，就变成了<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_DkMygOkPLc.png" alt width="247" data-align="inline"></p>
+]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
+      <tags>
+        <tag>AI理论基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL注入实战之DVWA</title>
     <url>/2023/04/13/SQL%E6%B3%A8%E5%85%A5%E5%AE%9E%E6%88%98%E4%B9%8BDVWA-%E4%B8%80/</url>
     <content><![CDATA[<h1 id="SQL-Injections-LOW"><a href="#SQL-Injections-LOW" class="headerlink" title="SQL Injections(LOW)"></a>SQL Injections(LOW)</h1><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这一关是一个输入框，存在一个可控变量id，输入id回显first name以及surname</p>
@@ -66,9 +109,26 @@
       </categories>
       <tags>
         <tag>DVWA</tag>
-        <tag>kali</tag>
         <tag>sql</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/09/25/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>Servlet实例化异常解决办法</title>
@@ -102,67 +162,6 @@
       <categories>
         <category>Java EE</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2022/09/25/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>代价函数</title>
-    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/ApplicationFrameHost_Gvqy4wLebk.png"></p>
-<blockquote>
-<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
-</blockquote>
-<div>
-<h1><font color="CadetBlue">1.什么是代价函数</font>
-</h1>
-</div>
-
-<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
-<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
-<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
-<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
-<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
-<div>
-<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
-</h1>
-</div>
-
-<p>        假设，给定一个关于 <code>x</code>  和 <code>y</code>  的数据集，该数据集可以被认定为一个线性回归模型，设定假象函数 : <font color="DeepSkyBlue">f<sub>w,b</sub></font> (x) &#x3D; <font color="DeepSkyBlue">w</font>x + <font color="DeepSkyBlue">b</font> </p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_bS2PBfg7tJ.png" title alt data-align="center">
-
-<p>        当函数中 <code>w</code>  和 <code>b</code>  两个参数发生改变时，函数也会偏离或者靠近数据集，为了使假象函数跟接近于真实的目标函数或更能使其正确的表示这个数据集，此时就可以引入代价函数</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_PNGYjBNfTI.png" title alt data-align="center">
-
-<p>        以平方误差代价函数为例，从最简单的单一参数来看，假设函数为：J<sub>w</sub> &#x3D; wx，平方误差代价函数的主要思想就是将实际数据给出的值与我们拟合出的线的对应值做差，求出我们拟合出的直线与实际的差距。</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_QKEXlhGUBk.png" title alt data-align="center">
-
-<p>        为了使这个值不受个别极端数据影响而产生巨大波动，采用类似方差再取二分之一的方式来减小个别数据的影响。这样，就产生了代价函数：</p>
-<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_dfDTIpbfSv.png" alt width="394" data-align="center">
-
-<p>将其扩充成2个参数，就变成了<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_DkMygOkPLc.png" alt width="247" data-align="inline"></p>
-]]></content>
-      <categories>
-        <category>机器深度学习Deeplearning.AI</category>
-      </categories>
-      <tags>
-        <tag>AI理论基础</tag>
-      </tags>
   </entry>
   <entry>
     <title>初始Metasploit</title>
@@ -243,7 +242,6 @@
         <category>网络安全</category>
       </categories>
       <tags>
-        <tag>kali</tag>
         <tag>metasploit</tag>
       </tags>
   </entry>
@@ -313,7 +311,6 @@
         <category>网络安全</category>
       </categories>
       <tags>
-        <tag>kali</tag>
         <tag>sql</tag>
       </tags>
   </entry>
@@ -324,5 +321,40 @@
       <categories>
         <category>机器深度学习Deeplearning.AI</category>
       </categories>
+  </entry>
+  <entry>
+    <title>文件包含漏洞实战之DVWA</title>
+    <url>/2023/04/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%AE%9E%E6%88%98%E4%B9%8BDVWA/</url>
+    <content><![CDATA[<h1 id="File-Inclusion-Low"><a href="#File-Inclusion-Low" class="headerlink" title="File Inclusion - Low"></a>File Inclusion - Low</h1><h2 id="分析及测试"><a href="#分析及测试" class="headerlink" title="分析及测试"></a>分析及测试</h2><p>先看看页面内容：有3个php页面，对应page值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212246082.png"></p>
+<p>先看看能否修改page值访问到本机的文件（拿Windows宿主机试了下，linux也可以尝试使用本地的文件），发现可行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212252094.png"></p>
+<p>那么接下来就可以尝试访问到服务器的文件，发现也可以直接访问到，证明既没有设置白名单也没有参数过滤</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212255931.png"></p>
+<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212257210.png"></p>
+<p>只有简单的一行代码，没有任何防御手段</p>
+<h1 id="File-Inclusion-Medium"><a href="#File-Inclusion-Medium" class="headerlink" title="File Inclusion - Medium"></a>File Inclusion - Medium</h1><h2 id="分析及测试-1"><a href="#分析及测试-1" class="headerlink" title="分析及测试"></a>分析及测试</h2><p>直接如法炮制访问服务器文件，发现行不通了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212300759.png"></p>
+<p>再尝试访问本机文件，结果可以访问到，说明可能对 <code>../</code> 等字符做了限制</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212302466.png"></p>
+<p>结合给到的WarningNo such file or directory in &#x2F;var&#x2F;www&#x2F;html&#x2F;DWVA&#x2F;vulnerabilities&#x2F;fi&#x2F;index.php可以尝试直接使用绝对路径来绕过参数限制</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212356538.png"></p>
+<h2 id="代码审计-1"><a href="#代码审计-1" class="headerlink" title="代码审计"></a>代码审计</h2><p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304212356932.png"></p>
+<p>果然是对 <code>../</code> , <code>..\\\</code> 等进行了限制，但是str_replace函数并不靠谱，可以使用绝对路径代替。或将限制的字符进行拼接，因为..&#x2F;等会被替换为空，那么在 <code>../</code> 中间再拼接一个 <code>../</code> ：.. ..&#x2F; &#x2F; , 由于中间的 <code>../</code> 会被替换为空，那么左右两边的又会变成一个完整的 <code>../</code>，这样就可以正常访问到。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304220003917.png"></p>
+<h1 id="File-Inclusion-High"><a href="#File-Inclusion-High" class="headerlink" title="File Inclusion - High"></a>File Inclusion - High</h1><h2 id="分析及测试-2"><a href="#分析及测试-2" class="headerlink" title="分析及测试"></a>分析及测试</h2><p>使用之前的方法，发现都不行，报错信息甚至做了自定义，这样就无法通过报错获取到有用的信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304220009838.png"></p>
+<p>猜测可能做了更严格的限制，可能对参数的格式做了限制，尝试用file:&#x2F;&#x2F;协议类进行文件读取，加一个 <code>file://</code>，发现可以正常访问到。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304220017331.png"></p>
+<h2 id="代码审计-2"><a href="#代码审计-2" class="headerlink" title="代码审计"></a>代码审计</h2><p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202304220017222.png"></p>
+<p>这里使用了fnmatch函数对page参数做了限制，开头必须为file。至于为什么能猜到要加file:&#x2F;&#x2F;，原因是相对路径不行，字符拼接不行，用过绝对路径后还不行就大致能确定不是字符限制的问题，问题可能出在参数格式之类的限制上。</p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>DVWA</tag>
+        <tag>File Inclusion</tag>
+      </tags>
   </entry>
 </search>
