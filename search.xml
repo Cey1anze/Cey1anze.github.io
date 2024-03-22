@@ -84,6 +84,42 @@
       </tags>
   </entry>
   <entry>
+    <title>Emlog Stored Cross-Site Scripting(XSS)-article function</title>
+    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)%20Article%20Function/</url>
+    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
+<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
+<li>Register and log in as administrator.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222128072.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132670.png"></p>
+<ol start="2">
+<li>Click “发新文章” on Personal Page.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132818.png"></p>
+<ol start="3">
+<li>Input payload：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">![1](1&quot;&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>Then click “立即发布” botton.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222129409.png"></p>
+<ol start="4">
+<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222130636.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222135818.png"></p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+        <tag>OWASP-TOP10</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Emlog Stored Cross-Site Scripting(XSS)</title>
     <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)/</url>
     <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
