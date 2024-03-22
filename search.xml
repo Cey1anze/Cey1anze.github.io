@@ -84,6 +84,42 @@
       </tags>
   </entry>
   <entry>
+    <title>Emlog Stored Cross-Site Scripting(XSS)</title>
+    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)/</url>
+    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
+<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
+<li>Install emlog and log in as administrator.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222017415.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222019172.png"></p>
+<ol start="2">
+<li>In the left navigation bar, enter the “微语” function and enter the payload:</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="variable language_">document</span>.<span class="property">cookie</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Then click “发布” botton.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222021590.png"></p>
+<ol start="3">
+<li>Add “微语” at “外观”-“边栏”.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222028608.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222029901.png"></p>
+<ol start="4">
+<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222031771.png"></p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+        <tag>OWASP-TOP10</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GET方法与POST方法</title>
     <url>/2023/04/21/GET%E6%96%B9%E6%B3%95%E4%B8%8EPOST%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h1 id="什么是-HTTP-协议"><a href="#什么是-HTTP-协议" class="headerlink" title="什么是 HTTP 协议"></a>什么是 HTTP 协议</h1><p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议 (HTTP) 是一种通信协议，它允许将超文本标记语言 (HTML) 文档从 Web 服务器传送到客户端的浏览器</p>
@@ -180,39 +216,6 @@
       <tags>
         <tag>Web基础</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Servlet实例化异常解决办法</title>
-    <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
-<p>系统环境：IDEA 2021.2，Tomcat 10</p>
-</blockquote>
-<p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
-<p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
-<p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
-<p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
-<div align="center">
-
-<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
-</div>
-
-<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
-<blockquote>
-<p>源代码：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改后：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
-]]></content>
-      <categories>
-        <category>Java EE</category>
-      </categories>
   </entry>
   <entry>
     <title>Metasploit渗透Windows实战</title>
@@ -433,6 +436,82 @@
       <tags>
         <tag>DVWA</tag>
         <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Servlet实例化异常解决办法</title>
+    <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
+<p>系统环境：IDEA 2021.2，Tomcat 10</p>
+</blockquote>
+<p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
+<p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
+<p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
+<p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
+<div align="center">
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
+</div>
+
+<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
+<blockquote>
+<p>源代码：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改后：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
+]]></content>
+      <categories>
+        <category>Java EE</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>XSS详解</title>
+    <url>/2023/07/13/XSS%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="XSS-Cross-Site-Scripting"><a href="#XSS-Cross-Site-Scripting" class="headerlink" title="XSS - Cross Site Scripting"></a>XSS - Cross Site Scripting</h1><p>跨站脚本攻击（Cross-site scripting，XSS）是一种安全漏洞，攻击者可以利用这种漏洞在网站上注入恶意的客户端代码。当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。</p>
+<p>作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。</p>
+<p>由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访 问目标服务器上被注入恶意脚本的页面后，由于它对目标服务器的信任，这段恶意脚本的执行不会受到什么阻碍。而此时，攻击者的目的就已经达到了。</p>
+<p>若受害者运行这些恶意代码，攻击者就可以突破网站的访问限制并冒充受害者。根据开放式 Web 应用安全项目（OWASP），XSS 在 2017 年被认为 <a href="https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">7 种最常见的 Web 应用程序漏洞之一</a>。</p>
+<h1 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h1><p>XSS的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的。</p>
+<h1 id="XSS攻击类型"><a href="#XSS攻击类型" class="headerlink" title="XSS攻击类型"></a><strong>XSS攻击类型</strong></h1><p>根据XSS脚本注入方式的不同，我们可以将XSS攻击简单的分类为反射型XSS、存储型XSS、DOM-based 型。</p>
+<h2 id="反射型XSS（非持久型XSS）"><a href="#反射型XSS（非持久型XSS）" class="headerlink" title="反射型XSS（非持久型XSS）"></a>反射型XSS（非持久型XSS）</h2><p>又称<strong>非持久型XSS</strong>。之所以称为反射型XSS，是因为这种攻击方式的注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的：发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，故叫反射型XSS。 而称为非持久型XSS，则是因为这种攻击方式具有一次性，由于代码注入的是一个动态产生的页面而不是永久的页面，因此这种攻击方式只在点击链接的时候才产生作用。</p>
+<p>攻击者通过电子邮件等方式给别人发送带有恶意脚本代码参数的 URL，当 URL 地址被打开时，注入脚本被传输到目标服务器上，然后服务器将注入脚本“反射”到受害者的浏览器上，特有的恶意代码参数被 HTML 解析、执行。</p>
+<p>非持久型 XSS 漏洞攻击的<strong>四大特点</strong>：① 即时性。不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据；②攻击者需要诱骗点击；③反馈率低，所以较难发现和响应修复；④盗取用户敏感保密信息。</p>
+<p>防止出现非持久型 XSS 漏洞的<strong>五大措施</strong>：① Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端；②尽量不要从 URL，document.referrer，document.forms 等这种 DOM API 中获取数据直接渲染；③尽量不要使用 eval, new Function()，document.write()，document.writeln()，window.setInterval()，window.setTimeout()，innerHTML，document.creteElement() 等可执行字符串的方法；④如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义；⑤ 前端渲染的时候对任何的字段都需要做 escape 转义编码。</p>
+<h2 id="存储型XSS（持久型XSS）"><a href="#存储型XSS（持久型XSS）" class="headerlink" title="存储型XSS（持久型XSS）"></a><strong>存储型XSS（持久型XSS）</strong></h2><p>存储型XSS，又称持久型XSS，他和反射型XSS最大的不同就是，攻击脚本将被永久地存放在目标服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。</p>
+<p>一般存在于 Form 表单提交等交互功能，如发帖留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。</p>
+<p>这种攻击多见于论坛，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入到帖子的内容之中。随着帖子被论坛服务器存储下来，恶意脚本也永久地被存放在论坛服务器的后端存储器中。当其它用户浏览这个被注入了恶意脚本的帖子的时候，恶意脚本则会在他们的浏览器中得到执行，从而受到了攻击。</p>
+<p>可以看到，存储型XSS的攻击方式能够将恶意代码永久地嵌入一个页面当中，所有访问这个页面的用户都将成为受害者。如果我们能够谨慎对待不明链接，那么反射型的XSS攻击将没有多大作为，而存储型XSS则不同，由于它注入的往往是一些我们所信任的页面，因此无论我们多么小心，都难免会受到攻击。可以说，存储型XSS更具有隐蔽性，带来的危害也更大，除非服务器能完全阻止注入，否则任何人都很有可能受到攻击。</p>
+<p>持久型 XSS 的三<strong>大特点</strong>：①持久性，植入在数据库中；②危害面广，甚至可以让用户机器变成 DDoS 攻击的肉鸡；③ 盗取用户敏感私密信息。</p>
+<p>防止持久型 XSS 漏洞的三大措施：①后端在入库前应该选择不相信任何前端数据，将所有的字段统一进行转义处理；②后端在输出给前端数据统一进行转义处理；③前端在渲染页面 DOM 的时候应该选择不相信任何后端数据，任何字段都需要做转义处理。</p>
+<h2 id="DOM-based-型"><a href="#DOM-based-型" class="headerlink" title="DOM-based 型"></a><strong>DOM-based 型</strong></h2><p>客户端的脚本程序可以动态地检查和修改页面内容，而不依赖于服务器端的数据。例如客户端如从 URL 中提取数据并在本地执行，如果用户在客户端输入的数据包含了恶意的 JavaScript 脚本，而这些脚本没有经过适当的过滤和消毒，那么应用程序就可能受到 DOM-based XSS 攻击。需要特别注意以下的用户输入源 document.URL、 location.hash、 location.search、 document.referrer 等。</p>
+<h1 id="XSS的危害"><a href="#XSS的危害" class="headerlink" title="XSS的危害"></a>XSS的危害</h1><p>(1)<a href="https://www.zhihu.com/search?q=%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">网络钓鱼</a>，包括盗取各类用户账号；</p>
+<p>(2)窃取用户cookies资料，从而获取用户隐私信息，或利用用户身份进一步对网站执行操作；</p>
+<p>(3)劫持用户(浏览器)会话，从而执行任意操作，例如进行非法转账、强制发表日志、发送电子邮件等；</p>
+<p>(4)强制弹出广告页面、刷流量等；</p>
+<p>(5)<a href="https://www.zhihu.com/search?q=%E7%BD%91%E9%A1%B5%E6%8C%82%E9%A9%AC&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">网页挂马</a>，进行恶意操作，例如任意篡改页面信息、删除文章等；</p>
+<p>(6)进行大量的客户端攻击，如DDoS攻击；</p>
+<p>(7)获取客户端信息，例如用户的浏览历史、真实IP、开放端口等；</p>
+<p>(8)控制受害者机器向其他网站发起攻击；</p>
+<p>(9)结合其他漏洞，如<a href="https://www.zhihu.com/search?q=CSRF%E6%BC%8F%E6%B4%9E&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">CSRF漏洞</a>，实施进一步作恶；</p>
+<p>(10)提升用户权限，包括进一步渗透网站；</p>
+<p>(11) 传播<a href="https://www.zhihu.com/search?q=%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E8%A0%95%E8%99%AB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">跨站脚本蠕虫</a>等；</p>
+<h1 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h1><h2 id="对输入和URL参数进行过滤-白名单和黑名单"><a href="#对输入和URL参数进行过滤-白名单和黑名单" class="headerlink" title="对输入和URL参数进行过滤(白名单和黑名单)"></a>对输入和URL参数进行过滤(白名单和黑名单)</h2><p>检查用户输入的数据中是否包含一些特殊字符，如&lt;、&gt;、’、“等，发现存在特殊字符，将这些特殊字符过滤或者编码。</p>
+<h2 id="HTML实体编码"><a href="#HTML实体编码" class="headerlink" title="HTML实体编码"></a>HTML实体编码</h2><p>字符串js编码转换成实体html编码的方法（防范XSS攻击）</p>
+<h2 id="对输出内容进行编码"><a href="#对输出内容进行编码" class="headerlink" title="对输出内容进行编码"></a>对输出内容进行编码</h2><p>在变量输出到HTML页面时，可以使用编码或转义的方式来防御XSS攻击。</p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+        <tag>OWASP-TOP10</tag>
       </tags>
   </entry>
   <entry>
@@ -728,8 +807,8 @@
         <category>网络安全</category>
       </categories>
       <tags>
-        <tag>SQL</tag>
         <tag>OWASP-TOP10</tag>
+        <tag>SQL</tag>
       </tags>
   </entry>
   <entry>
@@ -822,48 +901,5 @@
       <categories>
         <category>机器深度学习Deeplearning.AI</category>
       </categories>
-  </entry>
-  <entry>
-    <title>XSS详解</title>
-    <url>/2023/07/13/XSS%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="XSS-Cross-Site-Scripting"><a href="#XSS-Cross-Site-Scripting" class="headerlink" title="XSS - Cross Site Scripting"></a>XSS - Cross Site Scripting</h1><p>跨站脚本攻击（Cross-site scripting，XSS）是一种安全漏洞，攻击者可以利用这种漏洞在网站上注入恶意的客户端代码。当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。</p>
-<p>作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。</p>
-<p>由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访 问目标服务器上被注入恶意脚本的页面后，由于它对目标服务器的信任，这段恶意脚本的执行不会受到什么阻碍。而此时，攻击者的目的就已经达到了。</p>
-<p>若受害者运行这些恶意代码，攻击者就可以突破网站的访问限制并冒充受害者。根据开放式 Web 应用安全项目（OWASP），XSS 在 2017 年被认为 <a href="https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">7 种最常见的 Web 应用程序漏洞之一</a>。</p>
-<h1 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h1><p>XSS的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的。</p>
-<h1 id="XSS攻击类型"><a href="#XSS攻击类型" class="headerlink" title="XSS攻击类型"></a><strong>XSS攻击类型</strong></h1><p>根据XSS脚本注入方式的不同，我们可以将XSS攻击简单的分类为反射型XSS、存储型XSS、DOM-based 型。</p>
-<h2 id="反射型XSS（非持久型XSS）"><a href="#反射型XSS（非持久型XSS）" class="headerlink" title="反射型XSS（非持久型XSS）"></a>反射型XSS（非持久型XSS）</h2><p>又称<strong>非持久型XSS</strong>。之所以称为反射型XSS，是因为这种攻击方式的注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的：发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，故叫反射型XSS。 而称为非持久型XSS，则是因为这种攻击方式具有一次性，由于代码注入的是一个动态产生的页面而不是永久的页面，因此这种攻击方式只在点击链接的时候才产生作用。</p>
-<p>攻击者通过电子邮件等方式给别人发送带有恶意脚本代码参数的 URL，当 URL 地址被打开时，注入脚本被传输到目标服务器上，然后服务器将注入脚本“反射”到受害者的浏览器上，特有的恶意代码参数被 HTML 解析、执行。</p>
-<p>非持久型 XSS 漏洞攻击的<strong>四大特点</strong>：① 即时性。不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据；②攻击者需要诱骗点击；③反馈率低，所以较难发现和响应修复；④盗取用户敏感保密信息。</p>
-<p>防止出现非持久型 XSS 漏洞的<strong>五大措施</strong>：① Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端；②尽量不要从 URL，document.referrer，document.forms 等这种 DOM API 中获取数据直接渲染；③尽量不要使用 eval, new Function()，document.write()，document.writeln()，window.setInterval()，window.setTimeout()，innerHTML，document.creteElement() 等可执行字符串的方法；④如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义；⑤ 前端渲染的时候对任何的字段都需要做 escape 转义编码。</p>
-<h2 id="存储型XSS（持久型XSS）"><a href="#存储型XSS（持久型XSS）" class="headerlink" title="存储型XSS（持久型XSS）"></a><strong>存储型XSS（持久型XSS）</strong></h2><p>存储型XSS，又称持久型XSS，他和反射型XSS最大的不同就是，攻击脚本将被永久地存放在目标服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。</p>
-<p>一般存在于 Form 表单提交等交互功能，如发帖留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。</p>
-<p>这种攻击多见于论坛，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入到帖子的内容之中。随着帖子被论坛服务器存储下来，恶意脚本也永久地被存放在论坛服务器的后端存储器中。当其它用户浏览这个被注入了恶意脚本的帖子的时候，恶意脚本则会在他们的浏览器中得到执行，从而受到了攻击。</p>
-<p>可以看到，存储型XSS的攻击方式能够将恶意代码永久地嵌入一个页面当中，所有访问这个页面的用户都将成为受害者。如果我们能够谨慎对待不明链接，那么反射型的XSS攻击将没有多大作为，而存储型XSS则不同，由于它注入的往往是一些我们所信任的页面，因此无论我们多么小心，都难免会受到攻击。可以说，存储型XSS更具有隐蔽性，带来的危害也更大，除非服务器能完全阻止注入，否则任何人都很有可能受到攻击。</p>
-<p>持久型 XSS 的三<strong>大特点</strong>：①持久性，植入在数据库中；②危害面广，甚至可以让用户机器变成 DDoS 攻击的肉鸡；③ 盗取用户敏感私密信息。</p>
-<p>防止持久型 XSS 漏洞的三大措施：①后端在入库前应该选择不相信任何前端数据，将所有的字段统一进行转义处理；②后端在输出给前端数据统一进行转义处理；③前端在渲染页面 DOM 的时候应该选择不相信任何后端数据，任何字段都需要做转义处理。</p>
-<h2 id="DOM-based-型"><a href="#DOM-based-型" class="headerlink" title="DOM-based 型"></a><strong>DOM-based 型</strong></h2><p>客户端的脚本程序可以动态地检查和修改页面内容，而不依赖于服务器端的数据。例如客户端如从 URL 中提取数据并在本地执行，如果用户在客户端输入的数据包含了恶意的 JavaScript 脚本，而这些脚本没有经过适当的过滤和消毒，那么应用程序就可能受到 DOM-based XSS 攻击。需要特别注意以下的用户输入源 document.URL、 location.hash、 location.search、 document.referrer 等。</p>
-<h1 id="XSS的危害"><a href="#XSS的危害" class="headerlink" title="XSS的危害"></a>XSS的危害</h1><p>(1)<a href="https://www.zhihu.com/search?q=%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">网络钓鱼</a>，包括盗取各类用户账号；</p>
-<p>(2)窃取用户cookies资料，从而获取用户隐私信息，或利用用户身份进一步对网站执行操作；</p>
-<p>(3)劫持用户(浏览器)会话，从而执行任意操作，例如进行非法转账、强制发表日志、发送电子邮件等；</p>
-<p>(4)强制弹出广告页面、刷流量等；</p>
-<p>(5)<a href="https://www.zhihu.com/search?q=%E7%BD%91%E9%A1%B5%E6%8C%82%E9%A9%AC&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">网页挂马</a>，进行恶意操作，例如任意篡改页面信息、删除文章等；</p>
-<p>(6)进行大量的客户端攻击，如DDoS攻击；</p>
-<p>(7)获取客户端信息，例如用户的浏览历史、真实IP、开放端口等；</p>
-<p>(8)控制受害者机器向其他网站发起攻击；</p>
-<p>(9)结合其他漏洞，如<a href="https://www.zhihu.com/search?q=CSRF%E6%BC%8F%E6%B4%9E&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">CSRF漏洞</a>，实施进一步作恶；</p>
-<p>(10)提升用户权限，包括进一步渗透网站；</p>
-<p>(11) 传播<a href="https://www.zhihu.com/search?q=%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E8%A0%95%E8%99%AB&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22351593982%22%7D">跨站脚本蠕虫</a>等；</p>
-<h1 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h1><h2 id="对输入和URL参数进行过滤-白名单和黑名单"><a href="#对输入和URL参数进行过滤-白名单和黑名单" class="headerlink" title="对输入和URL参数进行过滤(白名单和黑名单)"></a>对输入和URL参数进行过滤(白名单和黑名单)</h2><p>检查用户输入的数据中是否包含一些特殊字符，如&lt;、&gt;、’、“等，发现存在特殊字符，将这些特殊字符过滤或者编码。</p>
-<h2 id="HTML实体编码"><a href="#HTML实体编码" class="headerlink" title="HTML实体编码"></a>HTML实体编码</h2><p>字符串js编码转换成实体html编码的方法（防范XSS攻击）</p>
-<h2 id="对输出内容进行编码"><a href="#对输出内容进行编码" class="headerlink" title="对输出内容进行编码"></a>对输出内容进行编码</h2><p>在变量输出到HTML页面时，可以使用编码或转义的方式来防御XSS攻击。</p>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>OWASP-TOP10</tag>
-        <tag>XSS</tag>
-      </tags>
   </entry>
 </search>
