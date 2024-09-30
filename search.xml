@@ -12,7 +12,7 @@
 <h2 id="启动-Cobalt-Strike-客户端"><a href="#启动-Cobalt-Strike-客户端" class="headerlink" title="启动 Cobalt Strike 客户端"></a>启动 Cobalt Strike 客户端</h2><ul>
 <li>Windows</li>
 </ul>
-<p>以管理员方式运行 cobaltstrike-client.cmd </p>
+<p>以管理员方式运行 cobaltstrike-client.cmd</p>
 <ul>
 <li>Linux</li>
 </ul>
@@ -22,40 +22,25 @@
 <p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307241614681.png"></p>
 <h1 id="导航栏介绍（ver-4-8）"><a href="#导航栏介绍（ver-4-8）" class="headerlink" title="导航栏介绍（ver. 4.8）"></a>导航栏介绍（ver. 4.8）</h1><p>介绍各栏常用的功能</p>
 <h2 id="Cobalt-Strike"><a href="#Cobalt-Strike" class="headerlink" title="Cobalt Strike"></a>Cobalt Strike</h2><ul>
-<li><p>New Connection - 连接新的 Cobalt Strike 服务端</p>
-</li>
-<li><p>Preference - Cobalt Strike 的设置功能</p>
-</li>
-<li><p>Visualization - 显示三种视图 （Pivot - 逻辑视图、session - 会话列表、target - 目标列表）</p>
-</li>
-<li><p>Listeners - 监听器列表，可添加、编辑、移除、重启监听器</p>
-</li>
-<li><p>Script manager - 管理 Cobalt Strike 额外的扩展脚本模块</p>
-</li>
+<li>New Connection - 连接新的 Cobalt Strike 服务端</li>
+<li>Preference - Cobalt Strike 的设置功能</li>
+<li>Visualization - 显示三种视图 （Pivot - 逻辑视图、session - 会话列表、target - 目标列表）</li>
+<li>Listeners - 监听器列表，可添加、编辑、移除、重启监听器</li>
+<li>Script manager - 管理 Cobalt Strike 额外的扩展脚本模块</li>
 </ul>
 <h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><ul>
-<li><p>Applications - 应用列表</p>
-</li>
-<li><p>Downloads - 下载列表</p>
-</li>
-<li><p>Event Logs - 事件日志</p>
-</li>
-<li><p>Proxy Pivot - 代理列表</p>
-</li>
-<li><p>Targets - 目标列表</p>
-</li>
-<li><p>Web Logs - 网络日志</p>
-</li>
+<li>Applications - 应用列表</li>
+<li>Downloads - 下载列表</li>
+<li>Event Logs - 事件日志</li>
+<li>Proxy Pivot - 代理列表</li>
+<li>Targets - 目标列表</li>
+<li>Web Logs - 网络日志</li>
 </ul>
 <h2 id="Payloads"><a href="#Payloads" class="headerlink" title="Payloads"></a>Payloads</h2><ul>
-<li><p>HTML Application - hta payload</p>
-</li>
-<li><p>MS Office - office payload</p>
-</li>
-<li><p>Stager Payload Generator - 生成分段 payload</p>
-</li>
-<li><p>Stageless Payload Generator - 生成不分段 payload</p>
-</li>
+<li>HTML Application - hta payload</li>
+<li>MS Office - office payload</li>
+<li>Stager Payload Generator - 生成分段 payload</li>
+<li>Stageless Payload Generator - 生成不分段 payload</li>
 </ul>
 <h2 id="Attacks"><a href="#Attacks" class="headerlink" title="Attacks"></a>Attacks</h2><ul>
 <li>Scripted Web delivery - Web delivery 攻击</li>
@@ -65,7 +50,7 @@
 <p>需要设置监听器的 Name、HTTP Hosts ，其他默认即可，如有特殊要求，再设置其他内容，80端口有占用则需设置 HTTP Port(C2)。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307241639639.png"></p>
 <h2 id="选择攻击方式"><a href="#选择攻击方式" class="headerlink" title="选择攻击方式"></a>选择攻击方式</h2><p>根据目标机器的漏洞，可以在 <strong>Payloads</strong> 中选择攻击的方式，本次就用不分段 payload，默认只需要设置 Listener ，选择刚才创建的监听器，点击 Generate 即可生成64位的 exe 木马。</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307241647029.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307241647029.png"></p>
 <p>将木马文件上传到目标机器上，并启动。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/pic/202307241651418.png"></p>
 <p>在客户端可以看到目标机器已经成功上线。当前用户为Administrator，后门进程为beacon_x64.exe，pid为2244。</p>
@@ -406,6 +391,39 @@
       </tags>
   </entry>
   <entry>
+    <title>Servlet实例化异常解决办法</title>
+    <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
+<p>系统环境：IDEA 2021.2，Tomcat 10</p>
+</blockquote>
+<p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
+<p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
+<p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
+<p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
+<div align="center">
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
+</div>
+
+<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
+<blockquote>
+<p>源代码：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改后：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
+]]></content>
+      <categories>
+        <category>Java EE</category>
+      </categories>
+  </entry>
+  <entry>
     <title>SQL注入实战之DVWA</title>
     <url>/2023/04/13/SQL%E6%B3%A8%E5%85%A5%E5%AE%9E%E6%88%98%E4%B9%8BDVWA-%E4%B8%80/</url>
     <content><![CDATA[<h1 id="SQL-Injections-LOW"><a href="#SQL-Injections-LOW" class="headerlink" title="SQL Injections(LOW)"></a>SQL Injections(LOW)</h1><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这一关是一个输入框，存在一个可控变量id，输入id回显first name以及surname</p>
@@ -473,39 +491,6 @@
         <tag>DVWA</tag>
         <tag>SQL</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Servlet实例化异常解决办法</title>
-    <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
-<p>系统环境：IDEA 2021.2，Tomcat 10</p>
-</blockquote>
-<p>  在IDEA中配置好Servlet文件路径，项目结构如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-10-12.png"></p>
-<p>Tomcat配置如下：<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-11-18.png"></p>
-<p>以ch07_8_tijiao.jsp为例，运行后第一个界面显示正常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-22-36.png"></p>
-<p>但当输入2个数据并点击提交后，servlet出现实例化异常<br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-24-22.png"></p>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>项目结构’web-lib’中导入Tomcat的Tomcat-api.jar包以及servlet-api.jar包，并导入进项目库中</p>
-<div align="center">
-
-<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-28-44.png"></p>
-</div>
-
-<p>如果Tomcat版本为10.0以下时，做完上面步骤问题消失，可以正常运行，<br>但当Tomcat版本为10.0时，仍然会显示实例化异常，<br>根本原因是Tomcat 10的servlet-api中并非旧版本的javax.servlet，而是jakarta.servlet，<br>此时需要将项目src目录下的java源文件中import javax.servlet全部改为jakarta.servlet，保存后即可正常运行</p>
-<blockquote>
-<p>源代码：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改后：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-27-19-25-20.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-35.png"><br><img src="/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/2022-09-26-22-50-59.png"></p>
-]]></content>
-      <categories>
-        <category>Java EE</category>
-      </categories>
   </entry>
   <entry>
     <title>XSS详解</title>
@@ -846,6 +831,33 @@
         <tag>OWASP-TOP10</tag>
         <tag>SQL</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>拯救假死机硬盘</title>
+    <url>/2023/09/30/%E6%8B%AF%E6%95%91%E5%81%87%E6%AD%BB%E6%9C%BA%E7%A1%AC%E7%9B%98/</url>
+    <content><![CDATA[<h1 id="拯救假死机硬盘"><a href="#拯救假死机硬盘" class="headerlink" title="拯救假死机硬盘"></a>拯救假死机硬盘</h1><blockquote>
+<p>情景：用DG格式化硬盘，未完成情况下强行关闭DG，导致windows循环读取坏分区。<br>现象：windows下任何涉及读取硬盘的软件未响应（假死），包括windows自带的磁盘管理。拔掉坏硬盘立刻恢复正常。</p>
+</blockquote>
+<h2 id="修复分析"><a href="#修复分析" class="headerlink" title="修复分析"></a>修复分析</h2><p>只要不是物理坏道就能修复，硬盘格式化时是NTFS格式，windows和linux都能读。win无法进行操作的情况下用linux读取磁盘。（必须本身装的系统是linux，虚拟机不行）</p>
+<p>linux在识别硬盘的时候会默认跳过坏道读取，从而避免陷入死循环。</p>
+<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2><p>fdisk查看磁盘信息，能识别到基本就有戏</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">fdisk -l</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302157495.png"></p>
+<p>lsblk也行</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">lsblk</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302202544.png"></p>
+<p>smartctl查看磁盘具体信息，最后显示<code>PASSED</code>表示硬盘健康状态良好</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">smartctl -a <span class="regexp">/dev/</span>sda</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302159511.png"></p>
+<p>mkfs直接开格硬盘，可以指定ext还是NTFS。没截图，磁盘如果有多个分区，中间会提示这个磁盘有多个分区，是否直接格式化，直接y确认就完事了。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkfs.ext4 <span class="regexp">/dev/</span>sda</span><br></pre></td></tr></table></figure>
+
+<p>格完插回windows，用自带的磁盘管理识别，会提示没有格式化，需要建立GPT分区。点确定创建好后怎么玩都行</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>只要不是物理坏道，linux能正常识别到就能救。有DOS系统的话也可以用DOS系统救。</p>
+]]></content>
   </entry>
   <entry>
     <title>文件上传漏洞实战之DVWA</title>
