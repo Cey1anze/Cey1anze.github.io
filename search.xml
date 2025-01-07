@@ -69,42 +69,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Emlog Stored Cross-Site Scripting(XSS)-article function</title>
-    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)%20Article%20Function/</url>
-    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
-<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
-
-<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
-<li>Register and log in as administrator.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222128072.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132670.png"></p>
-<ol start="2">
-<li>Click “发新文章” on Personal Page.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132818.png"></p>
-<ol start="3">
-<li>Input payload：</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">![1](1&quot;&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;)</span></span></span><br></pre></td></tr></table></figure>
-
-<p>Then click “立即发布” botton.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222129409.png"></p>
-<ol start="4">
-<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222130636.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222135818.png"></p>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>XSS</tag>
-        <tag>OWASP-TOP10</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Emlog Stored Cross-Site Scripting(XSS)</title>
     <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)/</url>
     <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
@@ -131,6 +95,42 @@
 <li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222031771.png"></p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+        <tag>OWASP-TOP10</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Emlog Stored Cross-Site Scripting(XSS)-article function</title>
+    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)%20Article%20Function/</url>
+    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
+<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
+<li>Register and log in as administrator.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222128072.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132670.png"></p>
+<ol start="2">
+<li>Click “发新文章” on Personal Page.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132818.png"></p>
+<ol start="3">
+<li>Input payload：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">![1](1&quot;&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>Then click “立即发布” botton.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222129409.png"></p>
+<ol start="4">
+<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222130636.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222135818.png"></p>
 ]]></content>
       <categories>
         <category>网络安全</category>
@@ -230,6 +230,63 @@
 <p>HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保持TCP连接，更不能代表HTTP使用的是UDP协议（无连接）</p>
 <p>从HTTP&#x2F;1.1起，默认都开启了Keep-Alive，保持连接特性，简单地说，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接</p>
 <p> Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间</p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>Web基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IIS证书转Nginx证书</title>
+    <url>/2025/01/07/IIS%E8%AF%81%E4%B9%A6%E8%BD%ACNginx%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<h1 id="IIS证书转Nginx证书"><a href="#IIS证书转Nginx证书" class="headerlink" title="IIS证书转Nginx证书"></a>IIS证书转Nginx证书</h1><blockquote>
+<p>要求：CA服务器、<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
+</blockquote>
+<h2 id="创建证书请求文件"><a href="#创建证书请求文件" class="headerlink" title="创建证书请求文件"></a>创建证书请求文件</h2><p>新建req.inf</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Version]</span></span><br><span class="line"><span class="attr">Signature</span>=<span class="variable">$Windows</span> NT$</span><br><span class="line"></span><br><span class="line"><span class="section">[NewRequest]</span></span><br><span class="line"><span class="attr">Subject</span> = CN=Server2019</span><br><span class="line"><span class="attr">KeySpec</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">KeyLength</span> = <span class="number">2048</span></span><br><span class="line"><span class="attr">Exportable</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">MachineKeySet</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">KeyUsage</span> = <span class="number">0</span>xa0</span><br><span class="line"><span class="attr">RequestType</span> = PKCS10</span><br><span class="line"></span><br><span class="line"><span class="section">[RequestAttributes]</span></span><br><span class="line"><span class="attr">CertificateTemplate</span> = WebServer</span><br><span class="line"></span><br><span class="line"><span class="section">[Extensions]</span></span><br><span class="line"><span class="attr">2.5.29.17</span> = <span class="string">&quot;&#123;text&#125;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;DNS=localhost&amp;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;IPAddress=192.168.242.171&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>CN：域名</p>
+<p>DNS：域名</p>
+<p>IPAddress：服务器地址（纯内网访问填内网地址，外部访问填公网地址）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072050193.png"></p>
+<p>管理员模式CMD执行certreq命令</p>
+<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">certreq -new <span class="name">C</span>:\Users\server2019\Desktop\req.inf <span class="name">C</span>:\Users\server2019\Desktop\req_new.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072057548.png"></p>
+<h2 id="提交证书申请"><a href="#提交证书申请" class="headerlink" title="提交证书申请"></a>提交证书申请</h2><p>打开req_new.txt，访问CA服务器的Web界面（用域管理员账户登录）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072101050.png"></p>
+<p>选择“申请证书” –&gt; “高级证书申请”，粘贴req_new.txt中的内容，证书模板选择Web服务器，点击提交。下载证书链，获得<code>certnew.p7b</code></p>
+<h2 id="导出带私钥的PFX证书"><a href="#导出带私钥的PFX证书" class="headerlink" title="导出带私钥的PFX证书"></a>导出带私钥的PFX证书</h2><p>打开p7b文件，安装证书</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072106474.png"></p>
+<p>“本地计算机” –&gt; “下一页” –&gt; “将所有的证书都放入下列存储” –&gt; “浏览” –&gt; “受信任的根证书颁发机构” –&gt; “下一页” –&gt; “完成”</p>
+<p>WIN + R 打开mmc，“文件” –&gt; “添加管理单元” –&gt; “证书” –&gt; “添加” –&gt; “计算机账户” –&gt; “下一页” –&gt; “本地计算机” –&gt; “完成”</p>
+<p>找到受信任的根证书颁发机构 – 证书 ，找到刚才导入的证书，证书图标上带小钥匙，说明带密钥</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072113234.png"></p>
+<p>右键证书 – 所有任务 – 导出 – 下一页 – 是，导出私钥 – 下一页 – 不做修改，直接下一页 – 勾选密码 – 设置一个密码 – 加密：AES-256-SHA256 – 确定 – 选择一个保存的位置 – 下一页 – 完成</p>
+<h2 id="转换证书"><a href="#转换证书" class="headerlink" title="转换证书"></a>转换证书</h2><blockquote>
+<p>非常不建议用网上的什么在线转换证书，很垃圾。大部分只能导出半截，要么只能私钥，要么只能公钥。</p>
+</blockquote>
+<p>进入安装好的OpenSSL目录，默认为<code>C:\Program Files\OpenSSL-Win64\bin</code>，在这个目录打开cmd</p>
+<p>输入这3条命令用于生成服务器证书、CA证书、私钥（生成的文件在bin目录，要改的话自己指定-out的目录）</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -clcerts -out ssltest<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -cacerts -out ca<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nocerts -nodes -out ssltest.key</span><br></pre></td></tr></table></figure>
+
+<p>Enter Import Password:（之前导出PFX时输入的密码）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072208115.png"></p>
+<blockquote>
+<p>Tips：私钥要生成未加密的，不然Web服务无法用。如果要在网络上传输私钥，用加密的私钥。密码单独以安全的方式发送给对方，对方用下面的命令解密密钥</p>
+</blockquote>
+<figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ssltest_enc.<span class="keyword">key</span> -<span class="keyword">out</span> ssltest.<span class="keyword">key</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072224465.png"></p>
+<p>校验密钥哈希值的命令</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">openssl rsa -in ssltest.key -outform DER <span class="string">| openssl dgst -sha256</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
+<p>需要安装CA证书，否则还是会显示连接不安全（即客户端要认为颁发者是可信的）如果没有装，访问CA服务器Web界面下载CA证书，安装到计算机的受信任的根证书颁发机构。域环境CA服务器会自动下发证书到域内所有计算机。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229085.png"><br><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229669.png"></p>
 ]]></content>
       <categories>
         <category>网络安全</category>
@@ -763,33 +820,6 @@
       </tags>
   </entry>
   <entry>
-    <title>拯救假死机硬盘</title>
-    <url>/2024/09/30/%E6%8B%AF%E6%95%91%E5%81%87%E6%AD%BB%E6%9C%BA%E7%A1%AC%E7%9B%98/</url>
-    <content><![CDATA[<h1 id="拯救假死机硬盘"><a href="#拯救假死机硬盘" class="headerlink" title="拯救假死机硬盘"></a>拯救假死机硬盘</h1><blockquote>
-<p>情景：用DG格式化硬盘，未完成情况下强行关闭DG，导致windows循环读取坏分区。<br>现象：windows下任何涉及读取硬盘的软件未响应（假死），包括windows自带的磁盘管理。拔掉坏硬盘立刻恢复正常。</p>
-</blockquote>
-<h2 id="修复分析"><a href="#修复分析" class="headerlink" title="修复分析"></a>修复分析</h2><p>只要不是物理坏道就能修复，硬盘格式化时是NTFS格式，windows和linux都能读。win无法进行操作的情况下用linux读取磁盘。（必须本身装的系统是linux，虚拟机不行）</p>
-<p>linux在识别硬盘的时候会默认跳过坏道读取，从而避免陷入死循环。</p>
-<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2><p>fdisk查看磁盘信息，能识别到基本就有戏</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">fdisk -l</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302157495.png"></p>
-<p>lsblk也行</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">lsblk</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302202544.png"></p>
-<p>smartctl查看磁盘具体信息，最后显示<code>PASSED</code>表示硬盘健康状态良好</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">smartctl -a <span class="regexp">/dev/</span>sda</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302159511.png"></p>
-<p>mkfs直接开格硬盘，可以指定ext还是NTFS。没截图，磁盘如果有多个分区，中间会提示这个磁盘有多个分区，是否直接格式化，直接y确认就完事了。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkfs.ext4 <span class="regexp">/dev/</span>sda</span><br></pre></td></tr></table></figure>
-
-<p>格完插回windows，用自带的磁盘管理识别，会提示没有格式化，需要建立GPT分区。点确定创建好后怎么玩都行</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>只要不是物理坏道，linux能正常识别到就能救。有DOS系统的话也可以用DOS系统救。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>初识SQL注入--小结</title>
     <url>/2023/04/02/%E5%88%9D%E8%AF%86SQL%E6%B3%A8%E5%85%A5-%E5%B0%8F%E7%BB%93/</url>
     <content><![CDATA[<h1 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h1><p>sql注入是指web应用程序对用户输入数据的合法性没有进行判断或者过滤不严，导致攻击者可以构造恶意语句，获取数据库中的数据，在一定条件下甚至可以拿到shell</p>
@@ -858,6 +888,33 @@
         <tag>OWASP-TOP10</tag>
         <tag>SQL</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>拯救假死机硬盘</title>
+    <url>/2024/09/30/%E6%8B%AF%E6%95%91%E5%81%87%E6%AD%BB%E6%9C%BA%E7%A1%AC%E7%9B%98/</url>
+    <content><![CDATA[<h1 id="拯救假死机硬盘"><a href="#拯救假死机硬盘" class="headerlink" title="拯救假死机硬盘"></a>拯救假死机硬盘</h1><blockquote>
+<p>情景：用DG格式化硬盘，未完成情况下强行关闭DG，导致windows循环读取坏分区。<br>现象：windows下任何涉及读取硬盘的软件未响应（假死），包括windows自带的磁盘管理。拔掉坏硬盘立刻恢复正常。</p>
+</blockquote>
+<h2 id="修复分析"><a href="#修复分析" class="headerlink" title="修复分析"></a>修复分析</h2><p>只要不是物理坏道就能修复，硬盘格式化时是NTFS格式，windows和linux都能读。win无法进行操作的情况下用linux读取磁盘。（必须本身装的系统是linux，虚拟机不行）</p>
+<p>linux在识别硬盘的时候会默认跳过坏道读取，从而避免陷入死循环。</p>
+<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2><p>fdisk查看磁盘信息，能识别到基本就有戏</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">fdisk -l</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302157495.png"></p>
+<p>lsblk也行</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">lsblk</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302202544.png"></p>
+<p>smartctl查看磁盘具体信息，最后显示<code>PASSED</code>表示硬盘健康状态良好</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">smartctl -a <span class="regexp">/dev/</span>sda</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202409302159511.png"></p>
+<p>mkfs直接开格硬盘，可以指定ext还是NTFS。没截图，磁盘如果有多个分区，中间会提示这个磁盘有多个分区，是否直接格式化，直接y确认就完事了。</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkfs.ext4 <span class="regexp">/dev/</span>sda</span><br></pre></td></tr></table></figure>
+
+<p>格完插回windows，用自带的磁盘管理识别，会提示没有格式化，需要建立GPT分区。点确定创建好后怎么玩都行</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>只要不是物理坏道，linux能正常识别到就能救。有DOS系统的话也可以用DOS系统救。</p>
+]]></content>
   </entry>
   <entry>
     <title>文件上传漏洞实战之DVWA</title>
