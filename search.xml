@@ -105,99 +105,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Emlog Stored Cross-Site Scripting(XSS)</title>
-    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)/</url>
-    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
-<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
-
-<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
-<li>Install emlog and log in as administrator.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222017415.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222019172.png"></p>
-<ol start="2">
-<li>In the left navigation bar, enter the “微语” function and enter the payload:</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="variable language_">document</span>.<span class="property">cookie</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Then click “发布” botton.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222021590.png"></p>
-<ol start="3">
-<li>Add “微语” at “外观”-“边栏”.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222028608.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222029901.png"></p>
-<ol start="4">
-<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222031771.png"></p>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>XSS</tag>
-        <tag>OWASP-TOP10</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IIS证书转Nginx证书</title>
-    <url>/2025/01/07/IIS%E8%AF%81%E4%B9%A6%E8%BD%ACNginx%E8%AF%81%E4%B9%A6/</url>
-    <content><![CDATA[<h1 id="IIS证书转Nginx证书"><a href="#IIS证书转Nginx证书" class="headerlink" title="IIS证书转Nginx证书"></a>IIS证书转Nginx证书</h1><blockquote>
-<p>要求：CA服务器、<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
-</blockquote>
-<h2 id="创建证书请求文件"><a href="#创建证书请求文件" class="headerlink" title="创建证书请求文件"></a>创建证书请求文件</h2><p>新建req.inf</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Version]</span></span><br><span class="line"><span class="attr">Signature</span>=<span class="variable">$Windows</span> NT$</span><br><span class="line"></span><br><span class="line"><span class="section">[NewRequest]</span></span><br><span class="line"><span class="attr">Subject</span> = CN=Server2019</span><br><span class="line"><span class="attr">KeySpec</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">KeyLength</span> = <span class="number">2048</span></span><br><span class="line"><span class="attr">Exportable</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">MachineKeySet</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">KeyUsage</span> = <span class="number">0</span>xa0</span><br><span class="line"><span class="attr">RequestType</span> = PKCS10</span><br><span class="line"></span><br><span class="line"><span class="section">[RequestAttributes]</span></span><br><span class="line"><span class="attr">CertificateTemplate</span> = WebServer</span><br><span class="line"></span><br><span class="line"><span class="section">[Extensions]</span></span><br><span class="line"><span class="attr">2.5.29.17</span> = <span class="string">&quot;&#123;text&#125;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;DNS=localhost&amp;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;IPAddress=192.168.242.171&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>CN：域名</p>
-<p>DNS：域名</p>
-<p>IPAddress：服务器地址（纯内网访问填内网地址，外部访问填公网地址）</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072050193.png"></p>
-<p>管理员模式CMD执行certreq命令</p>
-<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">certreq -new <span class="name">C</span>:\Users\server2019\Desktop\req.inf <span class="name">C</span>:\Users\server2019\Desktop\req_new.txt</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072057548.png"></p>
-<h2 id="提交证书申请"><a href="#提交证书申请" class="headerlink" title="提交证书申请"></a>提交证书申请</h2><p>打开req_new.txt，访问CA服务器的Web界面（用域管理员账户登录）</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072101050.png"></p>
-<p>选择“申请证书” –&gt; “高级证书申请”，粘贴req_new.txt中的内容，证书模板选择Web服务器，点击提交。下载证书链，获得<code>certnew.p7b</code></p>
-<h2 id="导出带私钥的PFX证书"><a href="#导出带私钥的PFX证书" class="headerlink" title="导出带私钥的PFX证书"></a>导出带私钥的PFX证书</h2><p>打开p7b文件，安装证书</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072106474.png"></p>
-<p>“本地计算机” –&gt; “下一页” –&gt; “将所有的证书都放入下列存储” –&gt; “浏览” –&gt; “受信任的根证书颁发机构” –&gt; “下一页” –&gt; “完成”</p>
-<p>WIN + R 打开mmc，“文件” –&gt; “添加管理单元” –&gt; “证书” –&gt; “添加” –&gt; “计算机账户” –&gt; “下一页” –&gt; “本地计算机” –&gt; “完成”</p>
-<p>找到受信任的根证书颁发机构 – 证书 ，找到刚才导入的证书，证书图标上带小钥匙，说明带密钥</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072113234.png"></p>
-<p>右键证书 – 所有任务 – 导出 – 下一页 – 是，导出私钥 – 下一页 – 不做修改，直接下一页 – 勾选密码 – 设置一个密码 – 加密：AES-256-SHA256 – 确定 – 选择一个保存的位置 – 下一页 – 完成</p>
-<h2 id="转换证书"><a href="#转换证书" class="headerlink" title="转换证书"></a>转换证书</h2><blockquote>
-<p>非常不建议用网上的什么在线转换证书，很垃圾。大部分只能导出半截，要么只能私钥，要么只能公钥。</p>
-</blockquote>
-<p>进入安装好的OpenSSL目录，默认为<code>C:\Program Files\OpenSSL-Win64\bin</code>，在这个目录打开cmd</p>
-<p>输入这3条命令用于生成服务器证书、CA证书、私钥（生成的文件在bin目录，要改的话自己指定-out的目录）</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -clcerts -out ssltest<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -cacerts -out ca<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nocerts -nodes -out ssltest.key</span><br></pre></td></tr></table></figure>
-
-<p>Enter Import Password:（之前导出PFX时输入的密码）</p>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072208115.png"></p>
-<blockquote>
-<p>Tips：私钥要生成未加密的，不然Web服务无法用。如果要在网络上传输私钥，用加密的私钥。密码单独以安全的方式发送给对方，对方用下面的命令解密密钥</p>
-</blockquote>
-<figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ssltest_enc.<span class="keyword">key</span> -<span class="keyword">out</span> ssltest.<span class="keyword">key</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072224465.png"></p>
-<p>校验密钥哈希值的命令</p>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">openssl rsa -in ssltest.key -outform DER <span class="string">| openssl dgst -sha256</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
-<p>需要安装CA证书，否则还是会显示连接不安全（即客户端要认为颁发者是可信的）如果没有装，访问CA服务器Web界面下载CA证书，安装到计算机的受信任的根证书颁发机构。域环境CA服务器会自动下发证书到域内所有计算机。</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229085.png"><br><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229669.png"></p>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>Web基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GET方法与POST方法</title>
     <url>/2023/04/21/GET%E6%96%B9%E6%B3%95%E4%B8%8EPOST%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h1 id="什么是-HTTP-协议"><a href="#什么是-HTTP-协议" class="headerlink" title="什么是 HTTP 协议"></a>什么是 HTTP 协议</h1><p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议 (HTTP) 是一种通信协议，它允许将超文本标记语言 (HTML) 文档从 Web 服务器传送到客户端的浏览器</p>
@@ -293,6 +200,99 @@
       </categories>
       <tags>
         <tag>Web基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IIS证书转Nginx证书</title>
+    <url>/2025/01/07/IIS%E8%AF%81%E4%B9%A6%E8%BD%ACNginx%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<h1 id="IIS证书转Nginx证书"><a href="#IIS证书转Nginx证书" class="headerlink" title="IIS证书转Nginx证书"></a>IIS证书转Nginx证书</h1><blockquote>
+<p>要求：CA服务器、<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
+</blockquote>
+<h2 id="创建证书请求文件"><a href="#创建证书请求文件" class="headerlink" title="创建证书请求文件"></a>创建证书请求文件</h2><p>新建req.inf</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Version]</span></span><br><span class="line"><span class="attr">Signature</span>=<span class="variable">$Windows</span> NT$</span><br><span class="line"></span><br><span class="line"><span class="section">[NewRequest]</span></span><br><span class="line"><span class="attr">Subject</span> = CN=Server2019</span><br><span class="line"><span class="attr">KeySpec</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">KeyLength</span> = <span class="number">2048</span></span><br><span class="line"><span class="attr">Exportable</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">MachineKeySet</span> = <span class="literal">TRUE</span></span><br><span class="line"><span class="attr">KeyUsage</span> = <span class="number">0</span>xa0</span><br><span class="line"><span class="attr">RequestType</span> = PKCS10</span><br><span class="line"></span><br><span class="line"><span class="section">[RequestAttributes]</span></span><br><span class="line"><span class="attr">CertificateTemplate</span> = WebServer</span><br><span class="line"></span><br><span class="line"><span class="section">[Extensions]</span></span><br><span class="line"><span class="attr">2.5.29.17</span> = <span class="string">&quot;&#123;text&#125;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;DNS=localhost&amp;&quot;</span></span><br><span class="line"><span class="attr">_continue_</span> = <span class="string">&quot;IPAddress=192.168.242.171&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>CN：域名</p>
+<p>DNS：域名</p>
+<p>IPAddress：服务器地址（纯内网访问填内网地址，外部访问填公网地址）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072050193.png"></p>
+<p>管理员模式CMD执行certreq命令</p>
+<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">certreq -new <span class="name">C</span>:\Users\server2019\Desktop\req.inf <span class="name">C</span>:\Users\server2019\Desktop\req_new.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072057548.png"></p>
+<h2 id="提交证书申请"><a href="#提交证书申请" class="headerlink" title="提交证书申请"></a>提交证书申请</h2><p>打开req_new.txt，访问CA服务器的Web界面（用域管理员账户登录）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072101050.png"></p>
+<p>选择“申请证书” –&gt; “高级证书申请”，粘贴req_new.txt中的内容，证书模板选择Web服务器，点击提交。下载证书链，获得<code>certnew.p7b</code></p>
+<h2 id="导出带私钥的PFX证书"><a href="#导出带私钥的PFX证书" class="headerlink" title="导出带私钥的PFX证书"></a>导出带私钥的PFX证书</h2><p>打开p7b文件，安装证书</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072106474.png"></p>
+<p>“本地计算机” –&gt; “下一页” –&gt; “将所有的证书都放入下列存储” –&gt; “浏览” –&gt; “受信任的根证书颁发机构” –&gt; “下一页” –&gt; “完成”</p>
+<p>WIN + R 打开mmc，“文件” –&gt; “添加管理单元” –&gt; “证书” –&gt; “添加” –&gt; “计算机账户” –&gt; “下一页” –&gt; “本地计算机” –&gt; “完成”</p>
+<p>找到受信任的根证书颁发机构 – 证书 ，找到刚才导入的证书，证书图标上带小钥匙，说明带密钥</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072113234.png"></p>
+<p>右键证书 – 所有任务 – 导出 – 下一页 – 是，导出私钥 – 下一页 – 不做修改，直接下一页 – 勾选密码 – 设置一个密码 – 加密：AES-256-SHA256 – 确定 – 选择一个保存的位置 – 下一页 – 完成</p>
+<h2 id="转换证书"><a href="#转换证书" class="headerlink" title="转换证书"></a>转换证书</h2><blockquote>
+<p>非常不建议用网上的什么在线转换证书，很垃圾。大部分只能导出半截，要么只能私钥，要么只能公钥。</p>
+</blockquote>
+<p>进入安装好的OpenSSL目录，默认为<code>C:\Program Files\OpenSSL-Win64\bin</code>，在这个目录打开cmd</p>
+<p>输入这3条命令用于生成服务器证书、CA证书、私钥（生成的文件在bin目录，要改的话自己指定-out的目录）</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -clcerts -out ssltest<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nokeys -cacerts -out ca<span class="selector-class">.pem</span></span><br><span class="line">openssl pkcs12 -<span class="keyword">in</span> C:\Users\Administrator\Desktop\ssltest<span class="selector-class">.cn</span><span class="selector-class">.pfx</span> -nocerts -nodes -out ssltest.key</span><br></pre></td></tr></table></figure>
+
+<p>Enter Import Password:（之前导出PFX时输入的密码）</p>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072208115.png"></p>
+<blockquote>
+<p>Tips：私钥要生成未加密的，不然Web服务无法用。如果要在网络上传输私钥，用加密的私钥。密码单独以安全的方式发送给对方，对方用下面的命令解密密钥</p>
+</blockquote>
+<figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ssltest_enc.<span class="keyword">key</span> -<span class="keyword">out</span> ssltest.<span class="keyword">key</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072224465.png"></p>
+<p>校验密钥哈希值的命令</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">openssl rsa -in ssltest.key -outform DER <span class="string">| openssl dgst -sha256</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><blockquote>
+<p>需要安装CA证书，否则还是会显示连接不安全（即客户端要认为颁发者是可信的）如果没有装，访问CA服务器Web界面下载CA证书，安装到计算机的受信任的根证书颁发机构。域环境CA服务器会自动下发证书到域内所有计算机。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229085.png"><br><img src="https://raw.githubusercontent.com/Cey1anze/Blog_Images/main/pic/202501072229669.png"></p>
+]]></content>
+      <categories>
+        <category>网络工程</category>
+      </categories>
+      <tags>
+        <tag>Web基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Emlog Stored Cross-Site Scripting(XSS)</title>
+    <url>/2024/03/22/Emlog%20Stored%20Cross-Site%20Scripting(XSS)/</url>
+    <content><![CDATA[<h1 id="Emlog-Stored-Cross-Site-Scripting-XSS"><a href="#Emlog-Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Emlog Stored Cross-Site Scripting(XSS)"></a>Emlog Stored Cross-Site Scripting(XSS)</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The client lacks proper validation when storing user input, resulting in a stored xss vulnerability.</p>
+<h2 id="Vendor-Homepage"><a href="#Vendor-Homepage" class="headerlink" title="Vendor Homepage"></a>Vendor Homepage</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">https:<span class="regexp">//</span>www.emlog.net/</span><br><span class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/emlog/</span>emlog</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proof-of-Concept"><a href="#Proof-of-Concept" class="headerlink" title="Proof of Concept"></a>Proof of Concept</h2><ol>
+<li>Install emlog and log in as administrator.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222017415.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222019172.png"></p>
+<ol start="2">
+<li>In the left navigation bar, enter the “微语” function and enter the payload:</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="variable language_">document</span>.<span class="property">cookie</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Then click “发布” botton.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222021590.png"></p>
+<ol start="3">
+<li>Add “微语” at “外观”-“边栏”.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222028608.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222029901.png"></p>
+<ol start="4">
+<li>All users now will trigger the attack code and a pop-up window when they enter the homepage of the website.</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Cey1anze/Blog_Images@main/pic/202403222031771.png"></p>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>XSS</tag>
+        <tag>OWASP-TOP10</tag>
       </tags>
   </entry>
   <entry>
@@ -665,6 +665,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2022/09/25/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Servlet实例化异常解决办法</title>
     <url>/2022/09/26/Servlet%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<h1 id="问题复现"><a href="#问题复现" class="headerlink" title="问题复现"></a>问题复现</h1><blockquote>
@@ -741,22 +759,47 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/09/25/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>代价函数</title>
+    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/ApplicationFrameHost_Gvqy4wLebk.png"></p>
+<blockquote>
+<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
+</blockquote>
+<div>
+<h1><font color="CadetBlue">1.什么是代价函数</font>
+</h1>
+</div>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
+<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
+<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
+<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
+<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
+<div>
+<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
+</h1>
+</div>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>        假设，给定一个关于 <code>x</code>  和 <code>y</code>  的数据集，该数据集可以被认定为一个线性回归模型，设定假象函数 : <font color="DeepSkyBlue">f<sub>w,b</sub></font> (x) &#x3D; <font color="DeepSkyBlue">w</font>x + <font color="DeepSkyBlue">b</font> </p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_bS2PBfg7tJ.png" title alt data-align="center">
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>        当函数中 <code>w</code>  和 <code>b</code>  两个参数发生改变时，函数也会偏离或者靠近数据集，为了使假象函数跟接近于真实的目标函数或更能使其正确的表示这个数据集，此时就可以引入代价函数</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_PNGYjBNfTI.png" title alt data-align="center">
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>        以平方误差代价函数为例，从最简单的单一参数来看，假设函数为：J<sub>w</sub> &#x3D; wx，平方误差代价函数的主要思想就是将实际数据给出的值与我们拟合出的线的对应值做差，求出我们拟合出的直线与实际的差距。</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_QKEXlhGUBk.png" title alt data-align="center">
+
+<p>        为了使这个值不受个别极端数据影响而产生巨大波动，采用类似方差再取二分之一的方式来减小个别数据的影响。这样，就产生了代价函数：</p>
+<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_dfDTIpbfSv.png" alt width="394" data-align="center">
+
+<p>将其扩充成2个参数，就变成了<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_DkMygOkPLc.png" alt width="247" data-align="inline"></p>
 ]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
+      <tags>
+        <tag>AI理论基础</tag>
+      </tags>
   </entry>
   <entry>
     <title>初始Metasploit</title>
@@ -841,46 +884,73 @@
       </tags>
   </entry>
   <entry>
-    <title>代价函数</title>
-    <url>/2022/10/11/%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/ApplicationFrameHost_Gvqy4wLebk.png"></p>
-<blockquote>
-<p>代价函数（Cost Function）在机器学习中的每一种算法中都很重要，因为训练模型的过程就是优化代价函数的过程，代价函数对每个参数的偏导数就是梯度下降中提到的梯度，防止过拟合时添加的正则化项也是加在代价函数后面的</p>
+    <title>初识SQL注入--小结</title>
+    <url>/2023/04/02/%E5%88%9D%E8%AF%86SQL%E6%B3%A8%E5%85%A5-%E5%B0%8F%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h1><p>sql注入是指web应用程序对用户输入数据的合法性没有进行判断或者过滤不严，导致攻击者可以构造恶意语句，获取数据库中的数据，在一定条件下甚至可以拿到shell</p>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>mysql5.0以上存在一个自带的数据库名为 <strong>information__schema</strong> ,是一个存储纪录了所有数据库名、表名、列名的数据库，也相当于可以从这里查询指定数据库下面的表名和列名的信息，这是因为在数据库中”.”表示下一级。例如：books.book 表示 books 数据库下面的book 表名</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">information_schema.schemata：纪录所有数据库的表</span><br><span class="line">information_schema.<span class="keyword">tables</span>：纪录所有表名的表</span><br><span class="line">information_schema.<span class="keyword">columns</span>；纪录所有列名的表</span><br><span class="line">相当于变量：</span><br><span class="line"><span class="built_in">table_name</span>:表名</span><br><span class="line"><span class="built_in">column_name</span>:列名</span><br><span class="line">table_schema:数据库名</span><br></pre></td></tr></table></figure>
+
+<h1 id="Step-1-判断"><a href="#Step-1-判断" class="headerlink" title="Step 1. 判断"></a>Step 1. 判断</h1><h2 id="判断是否有注入点"><a href="#判断是否有注入点" class="headerlink" title="判断是否有注入点"></a>判断是否有注入点</h2><p>首先需要判断注入点是否存在，如果在页面的url中存在某些参数，比如下面这个URL中就存在一个id参数：<a href="http://xxxxx.xxx/?id=1">http://xxxxx.xxx/?id=1</a></p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101355731.png" title alt data-align="center">
+
+<p>就可以尝试改变id的数值，将参数值+1或-1，然后查看页面展示的内容是否会变化，如果页面会发生变化，则我们就可以初步判断，这个id会带入数据库查询，查询后的内容会显示到页面中来。</p>
+<p>猜测查询的SQL语句大致为：</p>
+<p><code>select * from [表名] where id = 1;</code></p>
+<h2 id="判断注入类型"><a href="#判断注入类型" class="headerlink" title="判断注入类型"></a>判断注入类型</h2><h3 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h3><p>在id后面跟一个单引号进行尝试，发现报错信息为 <code>&#39;&#39;1&#39;&#39; LIMIT 0,1&#39;</code> ，去掉报错信息本身的左右单引号，为 <code>&#39;1&#39;&#39; LIMIT 0,1</code> ，发现1的左方1个单引号，右方2个单引号。可以判断出SQL语句为<code>select * from [表名] where id = ’1‘  LIMIT 0,1;</code> </p>
+<p>报错信息分析：因为我们在id后多跟了一个单引号，导致查询语句在id后闭合，后续内容无法正常执行，所以出现这个报错</p>
+<p>由此判断id的接受类型为字符型</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101358449.png" title alt data-align="center">
+
+<h3 id="数字型"><a href="#数字型" class="headerlink" title="数字型"></a>数字型</h3><p>判断是否为数字型依然选择添加单引号测试，发现报错结果为 <code>&#39;&#39; LIMIT 0,1&#39;</code> ，去除报错信息本身的左右单引号，为 <code>&#39; LIMIT 0,1</code> ，说明跟在id后的单引号多余，导致查询语句无法执行</p>
+<p>报错信息分析：传入的参数前面并没有引号包裹，多出的单引号导致语句异常</p>
+<p>由此判断id的接受类型为数字型</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101410758.png" title alt data-align="center">
+
+<h3 id="添加单引号"><a href="#添加单引号" class="headerlink" title="添加单引号"></a>添加单引号</h3><p>添加了单引号之后，如果页面中直接进行了报错，并且报错的信息显示到了页面中来，说明我们输入的单引号被带入了数据库查询，我们就可以直接判断此处存在sql注入漏洞。并且结合之前判断的页面是否有回显，就可以尝试进行联合查询注入或是报错注入。</p>
+<h3 id="添加逻辑运算"><a href="#添加逻辑运算" class="headerlink" title="添加逻辑运算"></a>添加逻辑运算</h3><p>添加 <code>and 1 = 1</code> 和 <code>and 1 = 2</code> </p>
+<p>在添加逻辑运算之前我们需要判断或者猜测注入点的数据类型和闭合方式，并对语句进行相应的引号、括号闭合。</p>
+<p>比如字符型我们可以直接添加and 1&#x3D;1 ，而单验号闭合的字符型我们就需要添加 <code>&#39;and &#39;1&#39;=1</code> ，或 <code>&#39;and &#39;1&#39;=1&#39; #</code> 使用注释符号将后面的引号直接注释掉。</p>
+<p>添加了逻辑运算符之后提交，因为 1&#x3D;1 恒为真，而 1&#x3D;2 恒为假，所以如果我们的输入带入了数据库，一定会影响到 SQL 语句的布尔状态，如果两次查询返回的页面不同，说明页面存在布尔状态，此处存在注入漏洞，可以考虑使用布尔盲注进行注入。</p>
+<h3 id="添加sleep-函数"><a href="#添加sleep-函数" class="headerlink" title="添加sleep( )函数"></a>添加sleep( )函数</h3><p><code>sleep()</code> 函数可以让程序在当前位置停留指定的时间，于是我们可以通过观察页面相应的时间来判断我们插入的参数是否会被带入数据库执行。</p>
+<p>在参数后添加 <code>and sleep(5)</code> 然后观察页面响应时间是否明显变长，或直接在开发者工具中网络选项卡下观察页面的响应时间。如果页面响应时间确实按照我们的要求增加了5秒，则说明此处存在注入漏洞，我们可以考虑通过延时注入。</p>
+<h2 id="执行注入"><a href="#执行注入" class="headerlink" title="执行注入"></a>执行注入</h2><h3 id="SQL注释"><a href="#SQL注释" class="headerlink" title="SQL注释"></a>SQL注释</h3><p>SQL 注入过程中注释符号有以下几种表达方式：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">%<span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p>SQL注入过程中注释符号的作用是把后面不需要的语句注释掉，以保证SQL命令的完整性。在注入的查询语句后跟注释可以屏蔽掉原本正常查询语句的部分内容。</p>
+<h3 id="联合查询注入"><a href="#联合查询注入" class="headerlink" title="联合查询注入"></a>联合查询注入</h3><blockquote>
+<p>有信息回显才能用</p>
 </blockquote>
-<div>
-<h1><font color="CadetBlue">1.什么是代价函数</font>
-</h1>
-</div>
+<h4 id="1-爆列"><a href="#1-爆列" class="headerlink" title="1. 爆列"></a>1. 爆列</h4><p>使用 <code>order by</code> 语句测试当前表有多少列， <code>order by</code> 语句的作用是按照某一列进行排序，在 MySQL 数据库中我们可以使用数字来代替对应列的列名，如果数据库中没有对应的列，就会报错。所以我们可以通过依次增加数字，直到报错，然后报错前的数字就是表的列数。例如：</p>
+<p>[order by 1]-&gt;[order by 2]-&gt;[order by 3]-&gt;[order by 4]-&gt;数据库报错</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101425795.png" title alt data-align="center">
 
-<p>        概况来讲，任何能够衡量模型预测出来的值h(θ)与真实值y之间的差异的函数都可以叫做代价函数J(θ)。</p>
-<p>        代价函数就是用于找到最优解的目的函数，这也是代价函数的作用。</p>
-<p>　　<strong><mark>损失函数（Loss Function ）</mark></strong> 是定义在单个样本上的，算的是一个样本的误差。</p>
-<p>　　<strong><mark>代价函数（Cost Function ）</mark></strong> 是定义在整个训练集上的，是所有样本误差的平均，也就是损失函数的平均。</p>
-<p>　　<strong><mark>目标函数（Object Function）</mark></strong> 定义为：最终需要优化的函数。等于经验风险+结构风险（也就是Cost Function + 正则化项）。</p>
-<div>
-<h1><font color="CadetBlue">2.代价函数的作用是什么</font>
-</h1>
-</div>
+<h4 id="2-爆数据库"><a href="#2-爆数据库" class="headerlink" title="2. 爆数据库"></a>2. 爆数据库</h4><p>使用 <code>database()</code> 可以获取当前使用的数据库名称</p>
+<p>使用联合查询语句进行查询： </p>
+<p><code>union select 1,database(),3 #</code> </p>
+<p>回显信息可以看到Login name已经被替换为了数据库的名称。</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101433026.png" title alt data-align="center">
 
-<p>        假设，给定一个关于 <code>x</code>  和 <code>y</code>  的数据集，该数据集可以被认定为一个线性回归模型，设定假象函数 : <font color="DeepSkyBlue">f<sub>w,b</sub></font> (x) &#x3D; <font color="DeepSkyBlue">w</font>x + <font color="DeepSkyBlue">b</font> </p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_bS2PBfg7tJ.png" title alt data-align="center">
+<h4 id="4-爆表"><a href="#4-爆表" class="headerlink" title="4. 爆表"></a>4. 爆表</h4><p>利用<strong>前提</strong>中的方法，使用联合查询语句： </p>
+<p><code>union select 1,group_concat(table_name),3 from information_schema.tables where table_schema = database() #</code> </p>
+<p>可以查到数据库中的所有表，其中 <code>group_concat()</code> 的意思为将查询到的所有table_name聚合为一条内容，从而解决某些网站只能回显一行的情况。</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101441978.png" title alt data-align="center">
 
-<p>        当函数中 <code>w</code>  和 <code>b</code>  两个参数发生改变时，函数也会偏离或者靠近数据集，为了使假象函数跟接近于真实的目标函数或更能使其正确的表示这个数据集，此时就可以引入代价函数</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_PNGYjBNfTI.png" title alt data-align="center">
+<h4 id="5-爆列"><a href="#5-爆列" class="headerlink" title="5. 爆列"></a>5. 爆列</h4><p>对于可能有敏感信息的表可以使用联合查询语句：</p>
+<p><code>union select 1,group_concat(column_name),3 from information_schema.columns where table_name = &#39;&lt;table&gt;&#39;</code> </p>
+<p>可以查到 <code>&lt;table&gt;</code> 表中的所有列。</p>
+<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101447487.png" title alt data-align="center">
 
-<p>        以平方误差代价函数为例，从最简单的单一参数来看，假设函数为：J<sub>w</sub> &#x3D; wx，平方误差代价函数的主要思想就是将实际数据给出的值与我们拟合出的线的对应值做差，求出我们拟合出的直线与实际的差距。</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_QKEXlhGUBk.png" title alt data-align="center">
-
-<p>        为了使这个值不受个别极端数据影响而产生巨大波动，采用类似方差再取二分之一的方式来减小个别数据的影响。这样，就产生了代价函数：</p>
-<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_dfDTIpbfSv.png" alt width="394" data-align="center">
-
-<p>将其扩充成2个参数，就变成了<img title src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/POWERPNT_DkMygOkPLc.png" alt width="247" data-align="inline"></p>
-]]></content>
+<h4 id="6-爆值"><a href="#6-爆值" class="headerlink" title="6. 爆值"></a>6. 爆值</h4><p>现在已经得到了数据库名，表名，列。接下来就是需要获取最重要的值，依然使用联合查询语句：</p>
+<p><code>union select 1,group_concat(&lt;column1&gt;,&lt;column2&gt;),3 from &lt;table&gt; #</code> </p>
+<p><code>&lt;column1&gt;,&lt;column2&gt;</code> 表示想要获取数据的列。</p>
+<p><code>&lt;table&gt;</code> 表示想要获取数据的表。<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101453479.png" title alt data-align="center"></p>
+<h4 id="剩余内容正在施工…"><a href="#剩余内容正在施工…" class="headerlink" title="剩余内容正在施工…"></a>剩余内容正在施工…</h4>]]></content>
       <categories>
-        <category>机器深度学习Deeplearning.AI</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>AI理论基础</tag>
+        <tag>OWASP-TOP10</tag>
+        <tag>SQL</tag>
       </tags>
   </entry>
   <entry>
@@ -965,76 +1035,6 @@
       </categories>
       <tags>
         <tag>Kali</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>初识SQL注入--小结</title>
-    <url>/2023/04/02/%E5%88%9D%E8%AF%86SQL%E6%B3%A8%E5%85%A5-%E5%B0%8F%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h1><p>sql注入是指web应用程序对用户输入数据的合法性没有进行判断或者过滤不严，导致攻击者可以构造恶意语句，获取数据库中的数据，在一定条件下甚至可以拿到shell</p>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>mysql5.0以上存在一个自带的数据库名为 <strong>information__schema</strong> ,是一个存储纪录了所有数据库名、表名、列名的数据库，也相当于可以从这里查询指定数据库下面的表名和列名的信息，这是因为在数据库中”.”表示下一级。例如：books.book 表示 books 数据库下面的book 表名</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">information_schema.schemata：纪录所有数据库的表</span><br><span class="line">information_schema.<span class="keyword">tables</span>：纪录所有表名的表</span><br><span class="line">information_schema.<span class="keyword">columns</span>；纪录所有列名的表</span><br><span class="line">相当于变量：</span><br><span class="line"><span class="built_in">table_name</span>:表名</span><br><span class="line"><span class="built_in">column_name</span>:列名</span><br><span class="line">table_schema:数据库名</span><br></pre></td></tr></table></figure>
-
-<h1 id="Step-1-判断"><a href="#Step-1-判断" class="headerlink" title="Step 1. 判断"></a>Step 1. 判断</h1><h2 id="判断是否有注入点"><a href="#判断是否有注入点" class="headerlink" title="判断是否有注入点"></a>判断是否有注入点</h2><p>首先需要判断注入点是否存在，如果在页面的url中存在某些参数，比如下面这个URL中就存在一个id参数：<a href="http://xxxxx.xxx/?id=1">http://xxxxx.xxx/?id=1</a></p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101355731.png" title alt data-align="center">
-
-<p>就可以尝试改变id的数值，将参数值+1或-1，然后查看页面展示的内容是否会变化，如果页面会发生变化，则我们就可以初步判断，这个id会带入数据库查询，查询后的内容会显示到页面中来。</p>
-<p>猜测查询的SQL语句大致为：</p>
-<p><code>select * from [表名] where id = 1;</code></p>
-<h2 id="判断注入类型"><a href="#判断注入类型" class="headerlink" title="判断注入类型"></a>判断注入类型</h2><h3 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h3><p>在id后面跟一个单引号进行尝试，发现报错信息为 <code>&#39;&#39;1&#39;&#39; LIMIT 0,1&#39;</code> ，去掉报错信息本身的左右单引号，为 <code>&#39;1&#39;&#39; LIMIT 0,1</code> ，发现1的左方1个单引号，右方2个单引号。可以判断出SQL语句为<code>select * from [表名] where id = ’1‘  LIMIT 0,1;</code> </p>
-<p>报错信息分析：因为我们在id后多跟了一个单引号，导致查询语句在id后闭合，后续内容无法正常执行，所以出现这个报错</p>
-<p>由此判断id的接受类型为字符型</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101358449.png" title alt data-align="center">
-
-<h3 id="数字型"><a href="#数字型" class="headerlink" title="数字型"></a>数字型</h3><p>判断是否为数字型依然选择添加单引号测试，发现报错结果为 <code>&#39;&#39; LIMIT 0,1&#39;</code> ，去除报错信息本身的左右单引号，为 <code>&#39; LIMIT 0,1</code> ，说明跟在id后的单引号多余，导致查询语句无法执行</p>
-<p>报错信息分析：传入的参数前面并没有引号包裹，多出的单引号导致语句异常</p>
-<p>由此判断id的接受类型为数字型</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101410758.png" title alt data-align="center">
-
-<h3 id="添加单引号"><a href="#添加单引号" class="headerlink" title="添加单引号"></a>添加单引号</h3><p>添加了单引号之后，如果页面中直接进行了报错，并且报错的信息显示到了页面中来，说明我们输入的单引号被带入了数据库查询，我们就可以直接判断此处存在sql注入漏洞。并且结合之前判断的页面是否有回显，就可以尝试进行联合查询注入或是报错注入。</p>
-<h3 id="添加逻辑运算"><a href="#添加逻辑运算" class="headerlink" title="添加逻辑运算"></a>添加逻辑运算</h3><p>添加 <code>and 1 = 1</code> 和 <code>and 1 = 2</code> </p>
-<p>在添加逻辑运算之前我们需要判断或者猜测注入点的数据类型和闭合方式，并对语句进行相应的引号、括号闭合。</p>
-<p>比如字符型我们可以直接添加and 1&#x3D;1 ，而单验号闭合的字符型我们就需要添加 <code>&#39;and &#39;1&#39;=1</code> ，或 <code>&#39;and &#39;1&#39;=1&#39; #</code> 使用注释符号将后面的引号直接注释掉。</p>
-<p>添加了逻辑运算符之后提交，因为 1&#x3D;1 恒为真，而 1&#x3D;2 恒为假，所以如果我们的输入带入了数据库，一定会影响到 SQL 语句的布尔状态，如果两次查询返回的页面不同，说明页面存在布尔状态，此处存在注入漏洞，可以考虑使用布尔盲注进行注入。</p>
-<h3 id="添加sleep-函数"><a href="#添加sleep-函数" class="headerlink" title="添加sleep( )函数"></a>添加sleep( )函数</h3><p><code>sleep()</code> 函数可以让程序在当前位置停留指定的时间，于是我们可以通过观察页面相应的时间来判断我们插入的参数是否会被带入数据库执行。</p>
-<p>在参数后添加 <code>and sleep(5)</code> 然后观察页面响应时间是否明显变长，或直接在开发者工具中网络选项卡下观察页面的响应时间。如果页面响应时间确实按照我们的要求增加了5秒，则说明此处存在注入漏洞，我们可以考虑通过延时注入。</p>
-<h2 id="执行注入"><a href="#执行注入" class="headerlink" title="执行注入"></a>执行注入</h2><h3 id="SQL注释"><a href="#SQL注释" class="headerlink" title="SQL注释"></a>SQL注释</h3><p>SQL 注入过程中注释符号有以下几种表达方式：</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">--</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">%<span class="number">23</span></span><br></pre></td></tr></table></figure>
-
-<p>SQL注入过程中注释符号的作用是把后面不需要的语句注释掉，以保证SQL命令的完整性。在注入的查询语句后跟注释可以屏蔽掉原本正常查询语句的部分内容。</p>
-<h3 id="联合查询注入"><a href="#联合查询注入" class="headerlink" title="联合查询注入"></a>联合查询注入</h3><blockquote>
-<p>有信息回显才能用</p>
-</blockquote>
-<h4 id="1-爆列"><a href="#1-爆列" class="headerlink" title="1. 爆列"></a>1. 爆列</h4><p>使用 <code>order by</code> 语句测试当前表有多少列， <code>order by</code> 语句的作用是按照某一列进行排序，在 MySQL 数据库中我们可以使用数字来代替对应列的列名，如果数据库中没有对应的列，就会报错。所以我们可以通过依次增加数字，直到报错，然后报错前的数字就是表的列数。例如：</p>
-<p>[order by 1]-&gt;[order by 2]-&gt;[order by 3]-&gt;[order by 4]-&gt;数据库报错</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101425795.png" title alt data-align="center">
-
-<h4 id="2-爆数据库"><a href="#2-爆数据库" class="headerlink" title="2. 爆数据库"></a>2. 爆数据库</h4><p>使用 <code>database()</code> 可以获取当前使用的数据库名称</p>
-<p>使用联合查询语句进行查询： </p>
-<p><code>union select 1,database(),3 #</code> </p>
-<p>回显信息可以看到Login name已经被替换为了数据库的名称。</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101433026.png" title alt data-align="center">
-
-<h4 id="4-爆表"><a href="#4-爆表" class="headerlink" title="4. 爆表"></a>4. 爆表</h4><p>利用<strong>前提</strong>中的方法，使用联合查询语句： </p>
-<p><code>union select 1,group_concat(table_name),3 from information_schema.tables where table_schema = database() #</code> </p>
-<p>可以查到数据库中的所有表，其中 <code>group_concat()</code> 的意思为将查询到的所有table_name聚合为一条内容，从而解决某些网站只能回显一行的情况。</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101441978.png" title alt data-align="center">
-
-<h4 id="5-爆列"><a href="#5-爆列" class="headerlink" title="5. 爆列"></a>5. 爆列</h4><p>对于可能有敏感信息的表可以使用联合查询语句：</p>
-<p><code>union select 1,group_concat(column_name),3 from information_schema.columns where table_name = &#39;&lt;table&gt;&#39;</code> </p>
-<p>可以查到 <code>&lt;table&gt;</code> 表中的所有列。</p>
-<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101447487.png" title alt data-align="center">
-
-<h4 id="6-爆值"><a href="#6-爆值" class="headerlink" title="6. 爆值"></a>6. 爆值</h4><p>现在已经得到了数据库名，表名，列。接下来就是需要获取最重要的值，依然使用联合查询语句：</p>
-<p><code>union select 1,group_concat(&lt;column1&gt;,&lt;column2&gt;),3 from &lt;table&gt; #</code> </p>
-<p><code>&lt;column1&gt;,&lt;column2&gt;</code> 表示想要获取数据的列。</p>
-<p><code>&lt;table&gt;</code> 表示想要获取数据的表。<img src="https://cdn.jsdelivr.net/gh/HYBBWuXiDiXi/Blog_Images@main/202304101453479.png" title alt data-align="center"></p>
-<h4 id="剩余内容正在施工…"><a href="#剩余内容正在施工…" class="headerlink" title="剩余内容正在施工…"></a>剩余内容正在施工…</h4>]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>OWASP-TOP10</tag>
-        <tag>SQL</tag>
       </tags>
   </entry>
   <entry>
@@ -1148,14 +1148,6 @@
       </tags>
   </entry>
   <entry>
-    <title>梯度下降</title>
-    <url>/2022/10/11/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>机器深度学习Deeplearning.AI</category>
-      </categories>
-  </entry>
-  <entry>
     <title>私接路由器故障排除 - DHCP Spooning</title>
     <url>/2025/03/31/%E7%A7%81%E6%8E%A5%E8%B7%AF%E7%94%B1%E5%99%A8%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4-DHCP-Spooning/</url>
     <content><![CDATA[<h1 id="私接路由器故障排除-DHCP-Spooning"><a href="#私接路由器故障排除-DHCP-Spooning" class="headerlink" title="私接路由器故障排除 - DHCP Spooning"></a>私接路由器故障排除 - DHCP Spooning</h1><blockquote>
@@ -1186,5 +1178,13 @@
       <tags>
         <tag>排障</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>梯度下降</title>
+    <url>/2022/10/11/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>机器深度学习Deeplearning.AI</category>
+      </categories>
   </entry>
 </search>
